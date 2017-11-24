@@ -1,0 +1,66 @@
+/*{系统专区}*/
+body,td,p,input,textarea {font-size:14px}
+input,select {font-size:12px}
+
+body {text-align:center;padding: 0; margin: 0;background-color:#BDD2FD;}
+
+form {margin:0}
+
+img {border:0px}
+#outer {height: 100%; position: relative; vertical-align:bottom;}
+
+
+/*{default专区}*/
+body.de-body {overflow-y:hidden;color:#ffffff;background-color:#f0e8d8}
+table.de-t01 {width:100%;height:100%;border:0px solid;background-image:url(../images/default-bg02.gif);background-repeat:no-repeat;background-position:center;}
+table.t02 {width:780;border:0px solid #a0a0a0;background-color:#EFEEDE;}
+table.t03 {border:0px solid #a0a0a0;background-color:#EFEEDE;}
+td.de-td01 {text-align:center;}
+td.de-td02 {height:100;}
+td.de-td03 {text-align:center;padding:20}
+div.de-div01 {position:absolute;width:45; height:19; z-index:1; right:20; top:20}
+input.de-in01 {margin:0px;padding:2;width:100px;height:18px;background-color:#ffffff;color:#000000;border:1px groove;border-color:#262626 #cccccc #cccccc #262626;}
+
+input.de-bu01 {font-size:14px;letter-spacing:2pt;height:62px;width:62px;text-align:center;padding-top:4;border:0;background-color:transparent;background-image:url(../images/default-bu04.gif);background-repeat: no-repeat;cursor:hand;}
+input.de-bu02 {font-size:14px;letter-spacing:2pt;height:62px;width:62px;text-align:center;padding-top:4;border:0;background-color:transparent;background-image:url(../images/default-bu05.gif);background-repeat: no-repeat;cursor:hand;}
+input.de-bu03 {font-size:14px;letter-spacing:2pt;height:62px;width:62px;text-align:center;padding-top:4;border:0;background-color:transparent;background-image:url(../images/default-bu03.gif);background-repeat: no-repeat;cursor:hand;}
+input.de-bu01on {font:bold 14px;letter-spacing:2pt;height:62px;width:62px;text-align:center;padding-top:4;border:0;background-color:transparent;background-image:url(../images/default-bu04.gif);background-repeat: no-repeat;cursor:hand;}
+input.de-bu02on {font:bold 14px;letter-spacing:2pt;height:62px;width:62px;text-align:center;padding-top:4;border:0;background-color:transparent;background-image:url(../images/default-bu05.gif);background-repeat: no-repeat;cursor:hand;}
+input.de-bu03on {font:bold 14px;letter-spacing:2pt;height:62px;width:62px;text-align:center;padding-top:4;border:0;background-color:transparent;background-image:url(../images/default-bu03.gif);background-repeat: no-repeat;cursor:hand;}
+
+
+/*{index专区}*/
+body.in-body {overflow-y:hidden;background-position:bottom;}
+table.in-t01 {border:0px solid;width:1000px;background-image: url(../images/index-bg01.gif);}
+td.in-td01 {width:122}
+td.in-td02 {height:28}
+td.in-td03 {width:31}
+
+
+/*{index-left专区}*/
+body.le-body {background-image: url(../images/left-bg01.gif);}
+
+table.le-t01 {border:0px solid;background-color:#f0e8d8;background-image: url(../images/left-bg01.gif);}
+table.le-t02 {width:100%;border:0px solid;}
+
+td.le-td01 {color:#ffffff;cursor:hand;border:outset #006f29;border-width:0px 0px 1px 0px;padding:6 5 4 5;
+letter-spacing:0pt;font:bold;text-align:center;letter-spacing:1pt;}
+td.le-td01on {color:#ffffff;cursor:hand;border:outset #006f29;border-width:0px 0px 1px 0px;padding:6 5 4 5;font:bold;
+text-align:center;letter-spacing:1pt;}
+td.le-td02 {background-color:#7DA7D9;padding:5px;border:outset #003212;border-width:0px 0px 1px 0px;color:#003212;font-size:12px;text-align:center}
+td.le-td03 {text-align:center;font-size:12px;font:bold;background-image: url(../images/left-bg03.gif);width:172px;height:27px;color:#ffffff}
+td.le-td04 {vertical-align:top;}
+
+A.le-a01:link {color:#ffffff; text-decoration: none}
+A.le-a01:visited {color:#ffffff; text-decoration: none}
+A.le-a01:active {color:#ffff00; text-decoration: none}
+A.le-a01:hover {color:#ffffff; text-decoration: none}
+A.le-a02:link {color:#000000; text-decoration: none}
+A.le-a02:visited {color:#000000; text-decoration: none}
+A.le-a02:active {color:#ffff00; text-decoration: none}
+A.le-a02:hover {color:#000000; text-decoration: none;font:bold}
+
+.point {font-size:12px;cursor:hand;font-family:Webdings;position:absolute;width:11}
+.point2 {font-size:12px;cursor:hand;font-family:Webdings;position:absolute;color:#ff0000;width:11}
+
+td.le-td10 { font-size:14px; color:#ff0000;border-width:0px 0px 0px 0px;font:bold;text-align:left;}

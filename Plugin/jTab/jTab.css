@@ -1,0 +1,91 @@
+.jTab 
+{ 
+	border:1px solid #fff; 
+	position: relative; 
+}
+
+.jTab_hTitle_bg 
+{
+	 border:1px solid #ccc; 
+	 font: normal 12px/23px Arial, Helvetica, sans-serif; 
+	 height:22px; 
+	 padding:0 12px;
+	 text-align:center;
+	 border-bottom-width:0px; 
+	 color: #666666; 
+	 z-index:9999; 
+	 background: url(images/jTab/hTitle_bg.png) repeat-x; 
+}
+
+.jTab_hTitle_over
+{
+	border-color:#86b2d1; 
+	background:url(images/jTab/hTitle_over.png) repeat-x; 
+	color: Red; 
+	height:23px;
+	_height:24px;
+}
+
+.jTab_hTitle_selected 
+{
+	border-color:#86b2d1; 
+	background:url(images/jTab/hTitle_selected.png) repeat-x; 
+	color: #024574; 
+	height:23px;
+	_height:24px;
+}
+
+.jTab_hContent
+{ 
+	border:1px solid #86b2d1; 
+	margin-top:23px; 
+	padding:5px; 
+	/*background:#c8e5fa;*/
+	font-size: 12px; 
+	line-height: 20px; 
+}
+
+.jTab_vTitle_bg 
+{ 
+	/*margin-top:1px;*/
+	border:1px solid #ccc; 
+	font: normal 12px/23px Arial, Helvetica, sans-serif; 
+	width: 23px;  
+	padding: 10px 0 10px;
+	text-align:center;
+	border-right-width:0px; 
+	color: #666666; 
+	z-index:9999; 
+	background: url(images/jTab/vTitle_bg.png) repeat-y; 
+	line-height: 15px; 
+}
+.jTab_vTitle_over
+{
+	border-color:#86b2d1; 
+	background:url(images/jTab/vTitle_over.png) repeat-y; 
+	color: Red; 
+}
+
+.jTab_vTitle_selected
+{
+	border-color:#86b2d1; 
+	background:url(images/jTab/vTitle_selected.png) repeat-y; 
+	color: #024574; 
+}
+
+.jTab_vContent
+{ 
+	border:1px solid #86b2d1; 
+	margin-left:24px; 
+	padding:5px; 
+	/*background:#c8e5fa; */
+	font-size: 12px; 
+	line-height: 20px;
+	display:block;
+	overflow:auto;
+}
+
+.jTab_hide
+{
+	display: none;
+}

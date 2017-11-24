@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jDiv</title>
+    <link rel="stylesheet" type="text/css" href="jTab.css" />
+    <script src="jquery.js" type="text/javascript"></script>
+    <script src="jTab.js" type="text/javascript"></script>
+    </meta>
+    <style>
+        body
+        {
+            margin: 0;
+            padding: 40px;
+            background: #fff;
+            font: 80% Arial, Helvetica, sans-serif;
+            color: #555;
+        }
+    </style>
+        
+    <script type="text/javascript">
+    
+        jQuery(document).ready(function() {        
+            jTab.createjTab("jTabV",'position:"vertical"');
+            jTab.createjTab("jTabH",'position:"horizontal"');
+        });
+            
+    </script>
+</head>
+<body>
+    <h1>Easy jTab Sample</h1>
+    <table cellpadding="0" cellspacing="3" style="width:100%">
+        <tr>
+            <td>
+                <div id="jTabV">
+                    <span id="spanModule" class="jTab_hide">按模块</span>
+                    <div id="divModule" class="jTab_hide" style="height:200px">
+                        按模块设置信息
+                    </div>
+                    <span id="spanUser" class="jTab_hide">按用户</span>
+                    <div id="divUser" class="jTab_hide" style="height:200px">
+                        按用户设置信息
+                    </div>
+                    <span id="spanRole" class="jTab_hide">按角色</span>
+                    <div id="divRole" class="jTab_hide" style="height:200px">
+                        按角色设置信息
+                    </div>
+                </div>        
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="jTabH">
+                    <span id="span1" class="jTab_hide">按模块</span>
+                    <div id="div2" class="jTab_hide" style="height:200px">
+                        按模块设置信息
+                    </div>
+                    <span id="span2" class="jTab_hide">按用户</span>
+                    <div id="div3" class="jTab_hide" style="height:200px">
+                        按用户设置信息
+                    </div>
+                    <span id="span3" class="jTab_hide">按角色</span>
+                    <div id="div4" class="jTab_hide" style="height:200px">
+                        按角色设置信息
+                    </div>
+                </div>            
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

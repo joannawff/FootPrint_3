@@ -1,0 +1,181 @@
+﻿@media Print
+{
+    .Noprint
+    {
+        display: none;
+    }
+    /*不打印，用于按钮等*/
+    .PageNext
+    {
+        page-break-after: always;
+    }
+    /*分页，最好用于DIV*/
+}
+
+h1
+{
+    font-family: 黑体;
+    font-size: 16px;
+    color: #000000;
+    margin: 0 0 5 0;
+    text-align: center;
+}
+
+h2
+{
+    font-family: 黑体;
+    font-size: 14px;
+    color: #000000;
+    margin: 0 0 5 0;
+}
+
+td
+{
+    font-size: 14px;
+    line-height: 2;
+    empty-cells: show;
+}
+
+table
+{
+    border-collapse: collapse;
+}
+
+td.heading
+{
+    text-align: center;
+    font-size: 20px;
+    line-height: 2;
+}
+
+td.content
+{
+    text-align: left;
+    font-size: 14px;
+    line-height: 2;
+}
+
+td.footer
+{
+    text-align: right;
+    font-size: 14px;
+    line-height: 2;
+}
+/*
+table{ border:1px; border-color:#000000}
+td{border-color:#000000;}
+*/
+body
+{
+    text-align: center;
+}
+
+td.tdleft
+{
+    text-align: left;
+    font-size: 14px;
+    border: 1px;
+}
+
+td.tdright
+{
+    text-align: right;
+    font-size: 14px;
+}
+
+/*审查意见书专区*/
+table.t01
+{
+    width: 630px;
+    border: 1px solid #000000;
+    background-color: #FFFFFF;
+    border-collapse: collapse;
+}
+
+td.t01
+{
+    text-align: center;
+    font-size: 36px;
+    line-height: 2;
+    font-weight: bold;
+}
+
+td.t02
+{
+    text-align: right;
+    font-size: 20px;
+    line-height: 2;
+    width: 30%;
+}
+
+td.t03
+{
+    text-align: left;
+    font-size: 20px;
+    line-height: 2;
+    width: 60%;
+    border-bottom: #000 1px solid;
+}
+
+td.t04
+{
+    text-align: center;
+    font-size: 24px;
+    line-height: 2;
+}
+
+td.t05
+{
+    text-align: left;
+    font-size: 24px;
+    line-height: 2;
+}
+
+td.t06
+{
+    text-align: left;
+    font-size: 24px;
+    line-height: 2;
+    vertical-align: top;
+}
+
+td.t07
+{
+    text-align: right;
+    font-size: 24px;
+    line-height: 2;
+}
+
+td.t08
+{
+    font-size: 16px;
+    line-height: 2;
+    height: 50px;
+}
+
+td.t09
+{
+    line-height: 0;
+    height: 0px;
+    border-style: none;
+    border: 0 0 0 0;
+}
+
+td.t10
+{
+    text-align: left;
+    font-size: 16px;
+    font-family: 仿宋_GB2312;
+    line-height: 2;
+    width: 60%;
+}
+
+td.t11
+{
+    text-align: center;
+    font-size: 24px;
+    font-family: 仿宋_GB2312;
+    line-height: 2;
+    font-weight: bold;
+}
+

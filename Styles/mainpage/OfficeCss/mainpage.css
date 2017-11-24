@@ -1,0 +1,69 @@
+﻿#mainpage1
+{
+     
+    width: 1200px;
+    height: 450px;
+    margin-top:10px;
+}
+#mainpage1_1
+{
+    border: 1px solid #C0C0C0;
+    width: 516px;
+    height: 445px;
+    float: left;
+}
+#mainpage1_1top
+{
+    /* border: 1px solid #000000;*/
+    width: 510px;
+    height: 25px;
+     border-bottom: 1px dotted #9966FF;
+    /*  margin-top: 2px;
+    margin-left: 2px; 
+   background-image: url('../images/mainpage_title .gif');*/
+   background-image: url('../images/mainpage_title.jpg');
+}
+#mainpage1_1top span a:hover
+{
+    color: #FF9933;
+    text-decoration: underline;
+    border-bottom: 1px solid #000000;
+}
+#mainpage1_1bottom
+{
+    border: 1px solid #000000;
+    width: 498px;
+    height: 400px;
+    margin-top: 6px;
+    margin-left: 8px;
+}
+/*----下面为右部内容css------*/
+#mainpage1_2
+{
+    border: 1px solid #C0C0C0;
+    width:514px; height:445px;
+    float:left;
+  }
+#mainpage1_2top
+{
+    border-bottom: 1px dotted #000000;
+    width: 512px;
+    height: 25px;
+   /* margin-top: 2px;
+    margin-left: 2px;*/
+    background-image: url('../images/mainpage_title.jpg');
+}
+#mainpage1_2top span a:hover
+{
+    color: #FF9933;
+    text-decoration: underline;
+    border-bottom: 1px solid #000000;
+}
+#mainpage1_2bottom
+{
+    border: 1px solid #000000;
+    width: 498px;
+    height: 400px;
+    margin:6px;
+    margin-bottom:4px;
+}

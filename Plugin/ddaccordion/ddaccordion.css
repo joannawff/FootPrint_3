@@ -1,0 +1,67 @@
+﻿.arrowlistmenu
+{
+    width: 172px; /*width of accordion menu*/
+}
+
+    .arrowlistmenu .menuheader
+    { /*CSS class for menu headers in general (expanding or not!)*/
+        font: bold 12px Arial;
+        color: white;
+        background: black url(./Images/titlebar.png) repeat-x center left;
+        margin-bottom: 10px; /*bottom spacing between header and rest of content*/
+        text-transform: uppercase;
+        padding: 4px 0px 4px 0px; /*header text is indented 10px*/
+        cursor: pointer;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+    }
+
+    .arrowlistmenu .openheader
+    { /*CSS class to apply to expandable header when it's expanded*/
+        background-image: url(./Images/titlebar-active.png);
+        height: 18px;
+        line-height: 18px;
+    }
+
+    .arrowlistmenu ul
+    { /*CSS for UL of each sub menu*/
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 5px; /*bottom spacing between each UL and rest of content*/
+    }
+
+        .arrowlistmenu ul li
+        {
+            padding-bottom: 2px; /*bottom spacing between menu items*/
+        }
+
+            .arrowlistmenu ul li a
+            {
+                margin-left: 8px;
+                color: #3d3d3d;
+                background: url(./Images/defaultpoint.gif) no-repeat center left; /*custom bullet list image*/
+                display: block;
+                padding: 2px 0;
+                padding-left: 19px; /*link text is indented 19px*/
+                text-decoration: none;
+                font-weight: bold;
+                border-bottom: 1px solid #dadada;
+                font-size: 12px;
+                height: 22px;
+                line-height: 22px;
+            }
+
+                .arrowlistmenu ul li a:visited
+                {
+                    color: #444444;
+                    font-size: 12px;
+                }
+
+                .arrowlistmenu ul li a:hover
+                { /*hover state CSS*/
+                    color: #444444;
+                    font-size: 12px;
+                    background-color: #F3F3F3;
+                }

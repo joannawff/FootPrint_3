@@ -1,0 +1,139 @@
+﻿.GridViewStyle
+{
+    height :26px;
+	padding: 4px;
+}
+
+.GridViewStyle a
+{
+	color: #0000ff;
+}
+.GridViewStyle A:link
+{
+	color: #0000ff;
+	border: 0;
+	text-decoration: none;
+	text-align: left;
+}
+.GridViewStyle A:visited
+{
+	color: #0000ff;
+	border: 0;
+	text-decoration: none;
+	text-align: left;
+}
+.GridViewStyle A:active
+{
+	color: #ff0000;
+	border: 0;
+	text-decoration: none;
+	text-align: left;
+}
+.GridViewStyle A:hover
+{
+	color: #ff0000;
+	border: 0;
+	text-decoration: none;
+	text-align: left;
+}
+.GridViewHeaderStyle th
+{
+	border: 1px solid #a0a0a0;
+}
+
+.GridViewHeaderStyle
+{
+	background-color:LightSkyBlue;
+	font-weight: bold;
+	color: White;
+	text-align: center;
+	font-size: 12px;
+	height: 28px;
+}
+
+.GridViewFooterStyle
+{
+	background-color: #ddd;
+	font-weight: bold;
+	color: White;
+	font-size: 12px;
+	height :26px;
+}
+
+.GridViewRowStyle
+{
+	background-color: #EEEEEE;
+	text-align: center;
+	font-size: 12px;
+	height :26px;
+}
+
+.GridViewEmptyStyle
+{
+	background-color: #FFEEEE;
+	color: #ff0000;
+	text-align: center;
+	font-size: 14px;
+	margin-top :10px;
+	height :50px;
+	vertical-align :middle;
+	font-weight :bolder ;
+}
+
+.GridViewAlternatingRowStyle
+{
+	background-color: #DDDDDD;
+	text-align: center;
+	font-size: 12px;
+	height :26px;	
+}
+
+.GridViewRowStyle td, .GridViewAlternatingRowStyle td, .GridViewSelectedRowStyle td
+{
+	border: 1px solid #a0a0a0;
+}
+
+.GridViewSelectedRowStyle
+{
+	background-color: #ffcc33;
+	color: White;
+	text-align: center;
+	font-size: 12px;
+	height :26px;
+}
+
+.GridViewPagerStyle
+{
+	background-color: #ccc;
+	color: #FFFFFF;
+	height :26px;
+}
+
+.GridViewPagerStyle table /* to center the paging links*/
+{
+	margin: 0 auto 0 auto;
+}
+
+tr.odd
+{
+	background-color: #fff;
+}
+
+tr.firstcss
+{
+	background-color: #5D7B9D;
+	font-weight: bold;
+	color: White;
+}
+
+tr.even
+{
+	background-color: #EFF3FB;
+}
+
+tr.over
+{
+	background: #99ccff;
+	cursor: pointer;
+	color: White;
+}

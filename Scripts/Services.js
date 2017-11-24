@@ -1,0 +1,1 @@
+﻿var servicesUrl = "http://172.20.8.124/VMServices";

@@ -1,0 +1,50 @@
+﻿
+.tab_menu
+{
+    clear: both;
+}
+.tab_menu li
+{
+    float: left;
+    text-align: center;
+    cursor: pointer;
+    list-style: none;
+    padding: 1px 1px;
+    margin-right: 4px;
+    background: #F1F1F1;
+    border: 1px solid #898989;
+    border-bottom: none;
+    width :120px;
+    font-size :11px;
+    height :21px;
+    line-height :21px;
+    background: url(../images/tab/hTitle_bg.png) repeat-x; 
+}
+.tab_menu li.hover
+{
+    border-color: #86b2d1;
+    background: url(../images/tab/hTitle_over.png) repeat-x;
+    color: Red;
+    width :120px;
+    font-size :11px;
+    height :21px;
+    line-height :21px;
+    font-weight: bolder;
+}
+.tab_menu li.selected
+{
+    border-color: #86b2d1;
+    background: url(../images/tab/hTitle_selected.png) repeat-x;
+    color: #024574;
+    width :120px;
+    font-size :11px;
+    height :21px;
+    line-height :21px;
+}
+.tab_line
+{
+    clear: both;
+    border-bottom :1px solid #898989;
+    height: 0px;
+}
+
