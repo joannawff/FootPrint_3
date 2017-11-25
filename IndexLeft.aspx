@@ -15,6 +15,7 @@
             var menu = [{
                 "text": "业务管理", "submenu": [
                     { "text": "项目管理", "href": "Sys/ProjectM.aspx" },
+                    { "text": "勘测计划", "href": "Sys/SurveyRegisterM.aspx" },
                     { "text": "勘测日志", "href": "Sys/SurveyM.aspx" }
                 ]
             },

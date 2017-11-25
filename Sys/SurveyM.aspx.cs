@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 
-public partial class Sys_SurveyM : System.Web.UI.Page
+public partial class Sys_SurveyM : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -30,14 +30,36 @@ public partial class Sys_SurveyM : System.Web.UI.Page
 
     protected void ParentList_OnItemDataBound(object sender, DataListItemEventArgs e)
     {
-        DataList ChildList = (DataList)e.Item.FindControl("ChildList");
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            Label labSurveyDate = (Label)e.Item.FindControl("labSurveyDate");
+            String surveyDate = Convert.ToDateTime(labSurveyDate.Text.Trim()).ToString("yyyy-MM-dd");
+            labSurveyDate.Text = surveyDate;
+            if (surveyDate.Equals("1999-01-01"))
+                labSurveyDate.Text = "-";
+            DataList ChildList = (DataList)e.Item.FindControl("ChildList");
+            Label labSurveyId = (Label)e.Item.FindControl("labSurveyId");
+            int surveyId = int.Parse(labSurveyId.Text.Trim());
+            SurveyDetailData detailData = new SurveyDetailData();
+            DataTable dt = detailData.GetSurveyDetailBySurveyId(surveyId);
 
-        int surveyId = int.Parse(((Label)e.Item.FindControl("labSurveyId")).Text.Trim());
-        SurveyDetailData detailData = new SurveyDetailData();
-        DataTable dt = detailData.GetSurveyDetailBySurveyId(surveyId);
+            ChildList.DataSource = dt;
+            ChildList.DataBind();
+        }
+        
+    }
 
-        /*获取查询结果myds后进行数据绑定*/
-        ChildList.DataSource = dt;
-        ChildList.DataBind();
+    protected void ChildList_ItemDataBound(object sender, DataListItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            Label labOffTime = (Label)e.Item.FindControl("labOffTime");
+            DateTime offTime = Convert.ToDateTime(labOffTime.Text.Trim());
+            String surveyDate = offTime.ToString("yyyy-MM-dd");
+            if (surveyDate.Equals("1999-01-01"))
+                labOffTime.Text = "-";
+            else
+                labOffTime.Text = offTime.ToString("yyyy-MM-dd hh:mm:ss");
+        }
     }
 }

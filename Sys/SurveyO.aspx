@@ -30,19 +30,6 @@
             $("#lableader").formValidator({ onshow: "请输入组长/安全员信息", onfocus: "组长信息不能为空", oncorrect: "输入正确" }).regexValidator({ regexp: "notempty", datatype: "enum", onerror: "错误" });
             $.formValidator.initConfig({ validatorgroup: "2" });
         });
-        //时间格式转换
-        function DataShortFormat(time) {
-            time = time.replace("/Date(", "").replace(")/", "");
-            var datetime = new Date();
-            datetime.setTime(time);
-            var year = datetime.getFullYear();
-            var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-            var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-            var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-            var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-            var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-            return year + "-" + month + "-" + date;
-        }
         
         function Check() {
             return jQuery.formValidator.pageIsValid("1");
@@ -71,6 +58,18 @@
                     </td>
                     <td class="td02b">
                         <div id="lableaderTip">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01">勘测计划：
+                    </td>
+                    <td class="td02a">
+                        <asp:DropDownList ID="ddlSurvey" runat="server" CssClass="se01">
+                        </asp:DropDownList>
+                    </td>
+                    <td class="td02b">
+                        <div id="ddlSurveyTip">
                         </div>
                     </td>
                 </tr>
@@ -120,8 +119,14 @@
                  <tr>
                     <td class="td01">收工时间：
                     </td>
-                    <td class="td02a">
-                        <asp:TextBox CssClass="in01" ID="labOffTime" runat="server"></asp:TextBox>
+                    <td class="td02a" style="vertical-align:bottom;">
+                        <asp:TextBox CssClass="in01" ID="labOffTime" onfocus="WdatePicker()" Width="80px" runat="server"></asp:TextBox>&nbsp;
+                        <asp:DropDownList ID="ddlHour" Width="50px" runat="server" CssClass="se01">
+                        </asp:DropDownList>时&nbsp;
+                        <asp:DropDownList ID="ddlMinute" Width="50px" runat="server" CssClass="se01">
+                        </asp:DropDownList>分&nbsp;
+                        <asp:DropDownList ID="ddlSecond" Width="50px" runat="server" CssClass="se01">
+                        </asp:DropDownList>秒
                     </td>
                     <td class="td02b">
                         <div id="labOffTimeTip">

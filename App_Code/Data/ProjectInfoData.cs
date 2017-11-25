@@ -22,9 +22,8 @@ public class ProjectInfoData
         //con.ConnectionString = "Initial Catalog=FootPrintDB;Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True";
 
     }
-    public DataTable GetDT() {
+    public DataTable GetProjectInfoByUserId(int userId) {
         DataTable dt = new DataTable(); //声明数据库表  
-        int userId = int.Parse(HttpContext.Current.Session["userId"].ToString().Trim());
         String userName = HttpContext.Current.Session["userName"].ToString().Trim();
         //获取数据源  
         if (con.State == ConnectionState.Closed)
@@ -34,7 +33,7 @@ public class ProjectInfoData
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
         cmd.CommandType = CommandType.Text;
-        if(userName=="admin")
+        if(!userName.Equals("admin"))
             cmd.CommandText = "select " +
             "p.Id as Id," +
             "p.ProjectName as ProjectName," +
@@ -61,7 +60,7 @@ public class ProjectInfoData
         return dt;
     }
 
-    public ProjectInfo GetDataById(int id) {
+    public ProjectInfo GetProjectInfoByProjectId(int projectId) {
         if (con.State == ConnectionState.Closed)
         {
             con.Open();
@@ -79,7 +78,7 @@ public class ProjectInfoData
             "from " +
             "Project p join UserInfo u " +
             "on p.UserId=u.id " +
-            "where p.id = " + id;
+            "where p.id = " + projectId;
         SqlDataReader dr = cmd.ExecuteReader();
         if (dr.Read())
         {

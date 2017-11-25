@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 
-public partial class Sys_ProjectM : System.Web.UI.Page
+public partial class Sys_ProjectM : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -24,7 +24,7 @@ public partial class Sys_ProjectM : System.Web.UI.Page
     {
         DataTable dt = new DataTable();
         ProjectInfoData projectInfoData = new ProjectInfoData();
-        dt = projectInfoData.GetDT();
+        dt = projectInfoData.GetProjectInfoByUserId(int.Parse(Session["userId"].ToString().Trim()));
         GridView1.DataSource = dt;
         GridView1.DataBind();
     }

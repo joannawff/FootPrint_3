@@ -40,6 +40,10 @@
             return year + "-" + month + "-" + date ;
         }
 
+        $(function () {
+            dialog('<%= Message %>', '<%= Href %>');
+        });
+
         //修改
         function Edit(id) {
             var url = 'ProjectO.aspx';
@@ -157,7 +161,7 @@
                     <asp:BoundField DataField="ProjectName"  HeaderText="项目名"></asp:BoundField>
                     <asp:BoundField DataField="UserName" ItemStyle-Width="60px" HeaderText="负责人"></asp:BoundField>
                     <asp:BoundField DataField="Tel" ItemStyle-Width="60px" HeaderText="联系方式" />
-                    <asp:BoundField DataField="Resident" ItemStyle-Width="80px" HeaderText="驻地"></asp:BoundField>
+                    <asp:BoundField DataField="Resident" ItemStyle-Width="200px" HeaderText="驻地"></asp:BoundField>
                 
                     <asp:TemplateField HeaderText="修改" ItemStyle-Width="40px">
                         <ItemTemplate>

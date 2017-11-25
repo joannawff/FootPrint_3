@@ -21,6 +21,60 @@ public class SurveyInfoData
         //con.ConnectionString = "Initial Catalog=FootPrintDB;Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True";
     }
 
+    public SurveyInfo GetSurveyInfoBySurveyId(int surveyId) {
+
+        SurveyInfo surveyInfo = new SurveyInfo();
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "select " +
+            "Id," +
+            "Title," +
+            "SurveyDate," +
+            "ProjectId " +
+            "from " +
+            "Survey " +
+            "where Id = " + surveyId;
+        SqlDataReader dr = cmd.ExecuteReader();
+        if (dr.Read()) {
+            surveyInfo.Id = dr.GetInt32(0);
+            surveyInfo.Title = dr.GetString(1).Trim();
+            surveyInfo.SurveyDate = dr.GetDateTime(2);
+            ProjectInfo p = new ProjectInfo();
+            p.Id = dr.GetInt32(3);
+            surveyInfo.ProjectInfo = p;
+        }
+        con.Close();
+        return surveyInfo;
+    }
+
+    public bool CommitSurveyInfo(SurveyInfo surveyInfo)
+    {
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        if (surveyInfo.Id == 0)//"insert into Survey values('开工前勘测','2017-10-01',10001)"
+            cmd.CommandText = "insert into Survey values(N'" + surveyInfo.Title + "','" + surveyInfo.SurveyDate.ToString("yyyy-MM-dd") + "'," + surveyInfo.ProjectInfo.Id + ")";
+        else
+            cmd.CommandText = "update Survey " +
+                "set Title = N'" + surveyInfo.Title.Trim() + "', " +
+                " SurveyDate = '" + surveyInfo.SurveyDate.ToString("yyyy-MM-dd") + "', " +
+                " ProjectId = " + surveyInfo.ProjectInfo.Id + " " +
+                " where id = " + surveyInfo.Id;
+        int i = cmd.ExecuteNonQuery();
+        con.Close();
+        return i >= 1;
+    }
+
     public DataTable GetSurveyInfoByUserId(int userId) {
         
         DataTable dt = new DataTable(); //声明数据库表
@@ -36,7 +90,9 @@ public class SurveyInfoData
         cmd.CommandText = "select " +
             "distinct s.Id as Id," +
             "s.Title as Title," +
-            "s.ProjectId as ProjectId " +
+            "s.ProjectId as ProjectId," +
+            "p.ProjectName as ProjectName,s.SurveyDate as SurveyDate," +
+            "concat(p.ProjectName,s.Title) as FullTitle " +
             "from " +
             "Survey s join Project p " +
             "on s.ProjectId = p.Id " +

@@ -28,7 +28,7 @@ public class SurveyDetailInfo
         this.sortData = sortData;
         this.sortDataParticipants = sortDataParticipants;
         this.device = device;
-        VehicleRecord = vehicleRecord;
+        this.vehicleRecord = vehicleRecord;
         this.remark = remark;
     }
 
@@ -43,7 +43,7 @@ public class SurveyDetailInfo
     private String sortData;
     private String sortDataParticipants;
     private String device;
-    private String VehicleRecord;
+    private String vehicleRecord;
     private String remark;
 
     public int Id { get => id; set => id = value; }
@@ -57,6 +57,6 @@ public class SurveyDetailInfo
     public string SortData { get => sortData; set => sortData = value; }
     public string SortDataParticipants { get => sortDataParticipants; set => sortDataParticipants = value; }
     public string Device { get => device; set => device = value; }
-    public string VehicleRecord1 { get => VehicleRecord; set => VehicleRecord = value; }
+    public string VehicleRecord { get => vehicleRecord; set => vehicleRecord = value; }
     public string Remark { get => remark; set => remark = value; }
 }

@@ -40,6 +40,9 @@
             return year + "-" + month + "-" + date;
         }
 
+        $(function () {
+            dialog('<%= Message %>', '<%= Href %>');
+        });
         //修改
         function Edit(id) {
             var url = 'SurveyO.aspx';
@@ -130,34 +133,40 @@
         </div>
         <div style="margin: 5px 10px 0px 3px;"">
              <asp:DataList ID="ParentList" runat="server" OnItemDataBound="ParentList_OnItemDataBound" HorizontalAlign="Center">
+                <HeaderTemplate>  
+                <table style="border-collapse: collapse;border: 0px solid #999;cellspacing:0;cellpadding:0">
+                    <tr class="GridViewHeaderStyle" style="vertical-align:bottom">
+                            <th valign:"bottom" width="40px">序号</th>
+                            <th valign:"bottom" width="40px">组长兼安全员</th>  
+                            <th valign:"bottom" width="80px">工作项目</th>  
+                            <th valign:"bottom" width="70px">组员</th>
+                            <th colspan="5" valign:"bottom">
+                                <table style="border-collapse: collapse;border: 0px solid #999;cellspacing:0;cellpadding:0" width="100%">
+                                    <tr style="border-bottom:1px solid #999;vertical-align:bottom;align-content:center"><td colspan="5">生产记录</td></tr>
+                                    <tr style="vertical-align:bottom;align-content:center">
+                                        <td style="border-top: 0;border-right: 1px solid #999;border-bottom: 0;border-left: 0;width:90px">计划</td>
+                                        <td style="border-top: 0;border-right: 1px solid #999;border-bottom: 0;border-left: 0;width:140px">实际</td>
+                                        <td style="border-top: 0;border-right: 1px solid #999;border-bottom: 0;border-left: 0;width:140px">收工时间</td>
+                                        <td style="border-top: 0;border-right: 1px solid #999;border-bottom: 0;border-left: 0;width:80px">整理资料</td>
+                                        <td style="border-top: 0;border-right: 1px solid #999;border-bottom: 0;border-left: 0;width:70px">参与人员</td>
+                                    </tr>
+                                </table>
+                            </th>
+                            <th valign:"bottom" width="70px">使用仪器及设备号</th>
+                            <th valign:"bottom" width="100px">用车记录</th>
+                            <th valign:"bottom" width="auto">备注</th>
+                            <th valign:"bottom" width="40px">修改</th>
+                        </tr>  
+                </HeaderTemplate> 
                 <ItemTemplate>
-                        <div align="center"><asp:Label ID="labTitle" runat="server" Text='<%# Eval("Title")%>'></asp:Label></div>
+                    <tr  style="background-color:white;text-align: center;font-size: 15px;height :26px;"><td colspan="13">
+                        <asp:Label ID="LabeProjectName" runat="server" Text='<%# Eval("ProjectName")%>'></asp:Label>-
+                        <asp:Label ID="labTitle" runat="server" Text='<%# Eval("Title")%>'></asp:Label>-
+                        <asp:Label ID="labSurveyDate" runat="server" Text='<%# Eval("SurveyDate")%>'></asp:Label>
                         <asp:Label ID="labSurveyId" runat="server" Text='<%# Eval("Id")%>' Visible="false"></asp:Label>
-                        <asp:DataList ID="ChildList" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal">
-                        <HeaderTemplate>  
-                        <table style="border-collapse:collapse;">
-                            <tr class="GridViewHeaderStyle" style="vertical-align:bottom">
-                                <th valign:"bottom" width="40px">序号</th>
-                                <th valign:"bottom" width="40px">组长兼安全员</th>  
-                                <th valign:"bottom" width="120px">工作项目</th>  
-                                <th valign:"bottom" width="90px">组员</th>
-                                <th colspan="5" valign:"bottom">
-                                    <table style="border-collapse: collapse;border: 0px solid #999;cellspacing:0;cellpadding:1" width="100%">
-                                        <tr style="border-bottom:1px solid #999;vertical-align:bottom;align-content:center"><td colspan="5">生产记录</td></tr>
-                                        <tr style="vertical-align:bottom;align-content:center">
-                                            <td style="border-top: 0;border-right: 1px solid #999;border-bottom: 0;border-left: 0;width:90px">计划</td>
-                                            <td style="border-top: 0;border-right: 1px solid #999;border-bottom: 0;border-left: 0;width:140px">实际</td>
-                                            <td style="border-top: 0;border-right: 1px solid #999;border-bottom: 0;border-left: 0;width:140px">收工时间</td>
-                                            <td style="border-top: 0;border-right: 1px solid #999;border-bottom: 0;border-left: 0;width:80px">整理资料</td>
-                                            <td style="border-top: 0;border-right: 1px solid #999;border-bottom: 0;border-left: 0;width:70px">整理资料参与人员</td>
-                                        </tr>
-                                    </table>
-                                </th>
-                                <th valign:"bottom" width="70px">使用仪器及设备号</th>
-                                <th valign:"bottom" width="100px">用车记录</th>
-                                <th valign:"bottom" width="auto">备注</th>
-                            </tr>  
-                        </HeaderTemplate>  
+                    </td></tr>
+                    <asp:DataList ID="ChildList" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" OnItemDataBound="ChildList_ItemDataBound">
+                         
                         <ItemTemplate>
                             <tr class="GridViewRowStyle">   
                                 <td><asp:Label ID="labID" runat="server" Text='<%# Container.ItemIndex+1 %>'></asp:Label></td>
@@ -172,6 +181,8 @@
                                 <td><asp:Label ID="labDevice" runat="server" Text='<%# Eval("Device")%>'></asp:Label></td>
                                 <td><asp:Label ID="labVehicleRecord" runat="server" Text='<%# Eval("VehicleRecord")%>'></asp:Label></td>
                                 <td><asp:Label ID="labRemark" runat="server" Text='<%# Eval("Remark")%>'></asp:Label></td>
+                                <td><img alt="修改" style="cursor: pointer;" onclick="Edit(<%# DataBinder.Eval(Container.DataItem, "Id")%>)"
+                                src="../Images/bb-ud.gif" /></td>
                             </tr> 
                         </ItemTemplate>
                         <AlternatingItemTemplate>
@@ -188,13 +199,16 @@
                                 <td><asp:Label ID="labDevice" runat="server" Text='<%# Eval("Device")%>'></asp:Label></td>
                                 <td><asp:Label ID="labVehicleRecord" runat="server" Text='<%# Eval("VehicleRecord")%>'></asp:Label></td>
                                 <td><asp:Label ID="labRemark" runat="server" Text='<%# Eval("Remark")%>'></asp:Label></td>
+                                <td><img alt="修改" style="cursor: pointer;" onclick="Edit(<%# DataBinder.Eval(Container.DataItem, "Id")%>)"
+                                src="../Images/bb-ud.gif" /></td>
                             </tr> 
                         </AlternatingItemTemplate>
-                        <FooterTemplate>
-                        </table>  
-                        </FooterTemplate> 
+                        
                     </asp:DataList>
                 </ItemTemplate>
+                <FooterTemplate>
+                    </table>  
+                </FooterTemplate> 
             </asp:DataList>
         </div>
         <div id="print" style="display:none;"></div>

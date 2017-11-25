@@ -35,7 +35,7 @@ public partial class Sys_ProjectO : BasePage
     private void PageInit(string id)
     {
         ProjectInfoData projectInfoData = new ProjectInfoData();
-        ProjectInfo projectInfo = projectInfoData.GetDataById(int.Parse(id.Trim()));
+        ProjectInfo projectInfo = projectInfoData.GetProjectInfoByProjectId(int.Parse(id.Trim()));
         this.ProjectName.Text = projectInfo.ProjectName.Trim();
         this.User.SelectedIndex = this.User.Items.IndexOf(this.User.Items.FindByValue(projectInfo.UserInfo.Id + ""));
         this.Resident.Text = projectInfo.Resident.Trim();
@@ -66,7 +66,6 @@ public partial class Sys_ProjectO : BasePage
             {
                 this.Alert("增项信息修改完成。", "ProjectM.aspx", MessageType.Succeed);
 
-                PageInit(id);
             }
             this.panelClose.Visible = true;
         /*}
