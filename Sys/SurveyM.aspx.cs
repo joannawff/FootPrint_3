@@ -13,15 +13,25 @@ public partial class Sys_SurveyM : BasePage
         if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
         {
             Response.Write(" <script> parent.window.location.href= '../Login.aspx ' </script> ");
+
+        }
+        else
+        {
+            int userId = int.Parse(Session["userId"].ToString().Trim());
+            PageInit(userId);
         }
         if (!Page.IsPostBack)
         {
             int userId = int.Parse(Session["userId"].ToString().Trim());
-            this.ParentList.DataSource = this.getSurveyInfoByUserId(userId);
-            this.ParentList.DataBind();
+            PageInit(userId);
         }
     }
-    private DataTable getSurveyInfoByUserId(int userId)
+
+    private void PageInit(int userId) {
+        this.ParentList.DataSource = this.GetSurveyInfoByUserId(userId);
+        this.ParentList.DataBind();
+    }
+    private DataTable GetSurveyInfoByUserId(int userId)
     {
         SurveyInfoData surveyInfoData = new SurveyInfoData();
         DataTable dt = surveyInfoData.GetSurveyInfoByUserId(userId);

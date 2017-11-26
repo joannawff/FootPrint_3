@@ -54,9 +54,9 @@
                     id: 'Survey',
                     title: '勘测信息维护',
                     fixed: true,
-                    top: 100,
+                    top: 60,
                     width: 1000,
-                    height: 320,
+                    height: 350,
                     resize: false,
                     close: function () {
                         if (art.dialog.data('message') != undefined) {

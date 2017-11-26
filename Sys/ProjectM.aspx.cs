@@ -19,6 +19,10 @@ public partial class Sys_ProjectM : BasePage
             }
             GridBind();
         }
+        else
+        {
+            GridBind();
+        }
     }
     private void GridBind()
     {

@@ -109,7 +109,7 @@ public class ProjectInfoData
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
         cmd.CommandType = CommandType.Text;
-        if (projectInfo.Id == 0)//"insert into Project values('测试项目3','10001','深圳')"
+        if (projectInfo.Id == 0)//"insert into Project values(N'测试项目3','10001','深圳')"
             cmd.CommandText = "insert into Project values(N'" + projectInfo.ProjectName + "'," + projectInfo.UserInfo.Id + ",N'" + projectInfo.Resident + "')";
         else
             cmd.CommandText = "update Project " +
