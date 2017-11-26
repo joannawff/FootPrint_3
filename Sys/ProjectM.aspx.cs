@@ -32,4 +32,9 @@ public partial class Sys_ProjectM : BasePage
         GridView1.DataSource = dt;
         GridView1.DataBind();
     }
+
+    protected void btnQuery_Click(object sender, EventArgs e)
+    {
+
+    }
 }

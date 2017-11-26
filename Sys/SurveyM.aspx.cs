@@ -10,27 +10,43 @@ public partial class Sys_SurveyM : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        string id;
         if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
         {
             Response.Write(" <script> parent.window.location.href= '../Login.aspx ' </script> ");
-
         }
         else
         {
+            id = Request["id"];
             int userId = int.Parse(Session["userId"].ToString().Trim());
+            DataTable dt = new DataTable();
+            dt = new ProjectInfoData().GetProjectInfoByUserId(userId);
+            this.ddlProject.DataSource = dt;
+            this.ddlProject.DataTextField = "ProjectName";
+            this.ddlProject.DataValueField = "Id";
+            this.ddlProject.DataBind();
             PageInit(userId);
         }
         if (!Page.IsPostBack)
         {
+            id = Request["id"];
             int userId = int.Parse(Session["userId"].ToString().Trim());
+            DataTable dt = new DataTable();
+            dt = new ProjectInfoData().GetProjectInfoByUserId(userId);
+            this.ddlProject.DataSource = dt;
+            this.ddlProject.DataTextField = "ProjectName";
+            this.ddlProject.DataValueField = "Id";
+            this.ddlProject.DataBind();
             PageInit(userId);
         }
     }
 
-    private void PageInit(int userId) {
+    private void PageInit(int userId)
+    {
         this.ParentList.DataSource = this.GetSurveyInfoByUserId(userId);
         this.ParentList.DataBind();
     }
+
     private DataTable GetSurveyInfoByUserId(int userId)
     {
         SurveyInfoData surveyInfoData = new SurveyInfoData();

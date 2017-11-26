@@ -20,7 +20,9 @@
         <div class="DivHeader">
             <h2>系统首页</h2>
         </div>
-        <div>可以放张图片</div>
+        <div>
+        系统首页
+        </div>
     </form>
 </body>
 </html>

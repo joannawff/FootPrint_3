@@ -91,8 +91,9 @@
                         <td style="text-align: right; width: 200px; font-weight: bold;"></td>
                         <td style="text-align: right; width: 80px; font-weight: bold;">项目名：
                         </td>
-                        <td style="text-align: left;">
-                            <asp:TextBox ID="txtCondition" class="in01" runat="server"></asp:TextBox>
+                        <td style="text-align: left; width: 200px;">
+                            <asp:DropDownList ID="ddlProject" runat="server" CssClass="se01">
+                            </asp:DropDownList>
                         </td>
                         <td style="text-align: center; width: 120px;">
                             <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询"/>
