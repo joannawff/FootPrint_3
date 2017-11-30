@@ -23,8 +23,9 @@ public class UserInfoData
 
     }
 
-    public bool Login(String userName, String password)
+    public UserInfo Login(String userName)
     {
+        UserInfo userInfo = new UserInfo();
         if (con.State == ConnectionState.Closed)
         {
             con.Open();
@@ -32,21 +33,28 @@ public class UserInfoData
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
         cmd.CommandType = CommandType.Text;
-        cmd.CommandText = "select id,Password from dbo.UserInfo where UserName = '" + userName + "'";
+        cmd.CommandText = "select u.id,u.UserName,u.Password,r.RoleCode from UserInfo u join Role r on u.RoleId=r.Id where UserName = '" + userName + "'";
         SqlDataReader dr = cmd.ExecuteReader();
         if (dr.Read())
         {
-            String tmpPass = dr.GetString(1).Trim();
+            /*
+            String tmpPass = dr.GetString(2).Trim();
             if (tmpPass.Equals(password))
             {
                 HttpContext.Current.Session["userId"] = dr.GetInt32(0);
                 HttpContext.Current.Session["userName"] = dr.GetString(1).Trim();
-                return true;
+                HttpContext.Current.Session["roleCode"] = dr.GetString(3).Trim();
             }
-
+            */
+            userInfo.Id = dr.GetInt32(0);
+            userInfo.UserName = dr.GetString(1).Trim();
+            userInfo.Password = dr.GetString(2).Trim();
+            RoleInfo roleInfo = new RoleInfo();
+            roleInfo.RoleCode = dr.GetInt32(3);
+            userInfo.RoleInfo = roleInfo;
         }
         con.Close();
-        return false;
+        return userInfo;
     }
 
     public DataTable GetUserInfos() {
@@ -58,7 +66,7 @@ public class UserInfoData
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
         cmd.CommandType = CommandType.Text;
-        cmd.CommandText = "select Id,UserName from UserInfo";
+        cmd.CommandText = "select Id,UserName from UserInfo where UserName != \'admin\'";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         da.Fill(dt);
         con.Close();
@@ -74,7 +82,7 @@ public class UserInfoData
         cmd.Connection = con;
         cmd.CommandType = CommandType.Text;
         if (userInfo.Id == 0)
-            cmd.CommandText = "insert into UserInfo values(N'" + userInfo.UserName + "','666666',2,'" + userInfo.Tel + "')";
+            cmd.CommandText = "insert into UserInfo values(N'" + userInfo.UserName + "','123456',2,'" + userInfo.Tel + "')";
         else
             cmd.CommandText = "update UserInfo set UserName = N'" + userInfo.UserName + "', Tel = '" + userInfo.Tel+"'";
         int i = cmd.ExecuteNonQuery();

@@ -17,7 +17,11 @@ public partial class Index : System.Web.UI.Page
         String userName = this.username.Value.Trim();
         String password = this.userpwd.Value.Trim();
         UserInfoData userData = new UserInfoData();
-        if (userData.Login(userName, password)) {
+        UserInfo userInfo = userData.Login(userName);
+        if (password.Equals(userInfo.Password)) {
+            Session["userId"] = userInfo.Id;
+            Session["userName"] = userInfo.UserName;
+            Session["roleCode"] = userInfo.RoleInfo.RoleCode;
             Response.Redirect("Index.aspx");
         }
     }

@@ -10,82 +10,46 @@ public partial class Sys_SurveyM : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        string id;
-        if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
+        if (!this.IsPostBack)
         {
-            Response.Write(" <script> parent.window.location.href= '../Login.aspx ' </script> ");
-        }
-        else
-        {
-            id = Request["id"];
+            if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
+            {
+                Response.Write(" <script> parent.window.location.href= '../Login.aspx ' </script> ");
+            }
+
             int userId = int.Parse(Session["userId"].ToString().Trim());
+            int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
             DataTable dt = new DataTable();
-            dt = new ProjectInfoData().GetProjectInfoByUserId(userId);
+            dt = new ProjectInfoData().GetProjectInfoByUserId(userId,roleCode);
             this.ddlProject.DataSource = dt;
             this.ddlProject.DataTextField = "ProjectName";
             this.ddlProject.DataValueField = "Id";
             this.ddlProject.DataBind();
-            PageInit(userId);
         }
-        if (!Page.IsPostBack)
-        {
-            id = Request["id"];
-            int userId = int.Parse(Session["userId"].ToString().Trim());
-            DataTable dt = new DataTable();
-            dt = new ProjectInfoData().GetProjectInfoByUserId(userId);
-            this.ddlProject.DataSource = dt;
-            this.ddlProject.DataTextField = "ProjectName";
-            this.ddlProject.DataValueField = "Id";
-            this.ddlProject.DataBind();
-            PageInit(userId);
-        }
+        GridBind();
     }
 
-    private void PageInit(int userId)
-    {
-        this.ParentList.DataSource = this.GetSurveyInfoByUserId(userId);
-        this.ParentList.DataBind();
-    }
 
-    private DataTable GetSurveyInfoByUserId(int userId)
+    private void GridBind()
     {
+        int userid = int.Parse(Session["userId"].ToString().Trim());
+        DataTable dt = new DataTable();
         SurveyInfoData surveyInfoData = new SurveyInfoData();
-        DataTable dt = surveyInfoData.GetSurveyInfoByUserId(userId);
-        return dt;
+        dt = surveyInfoData.GetSurveyInfoByUserId(userid);
+        GridView1.DataSource = dt;
+        GridView1.DataBind();
     }
 
-    protected void ParentList_OnItemDataBound(object sender, DataListItemEventArgs e)
+    protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            Label labSurveyDate = (Label)e.Item.FindControl("labSurveyDate");
-            String surveyDate = Convert.ToDateTime(labSurveyDate.Text.Trim()).ToString("yyyy-MM-dd");
-            labSurveyDate.Text = surveyDate;
-            if (surveyDate.Equals("1999-01-01"))
-                labSurveyDate.Text = "-";
-            DataList ChildList = (DataList)e.Item.FindControl("ChildList");
-            Label labSurveyId = (Label)e.Item.FindControl("labSurveyId");
-            int surveyId = int.Parse(labSurveyId.Text.Trim());
-            SurveyDetailData detailData = new SurveyDetailData();
-            DataTable dt = detailData.GetSurveyDetailBySurveyId(surveyId);
-
-            ChildList.DataSource = dt;
-            ChildList.DataBind();
+            e.Row.Cells[3].Text = Convert.ToDateTime(e.Row.Cells[3].Text).ToString("yyyy-MM-dd");
         }
-        
     }
 
-    protected void ChildList_ItemDataBound(object sender, DataListItemEventArgs e)
+    protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-        {
-            Label labOffTime = (Label)e.Item.FindControl("labOffTime");
-            DateTime offTime = Convert.ToDateTime(labOffTime.Text.Trim());
-            String surveyDate = offTime.ToString("yyyy-MM-dd");
-            if (surveyDate.Equals("1999-01-01"))
-                labOffTime.Text = "-";
-            else
-                labOffTime.Text = offTime.ToString("yyyy-MM-dd hh:mm:ss");
-        }
+        GridBind();
     }
 }

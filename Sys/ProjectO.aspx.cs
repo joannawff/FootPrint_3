@@ -60,11 +60,11 @@ public partial class Sys_ProjectO : BasePage
 
             if (string.IsNullOrEmpty(id))
             {
-                this.Alert("增项信息添加完成，请继续添加。", "ProjectO.aspx", MessageType.Succeed);
+                this.Alert("项目信息添加完成，请继续添加。", "ProjectO.aspx", MessageType.Succeed);
             }
             else
             {
-                this.Alert("增项信息修改完成。", "ProjectM.aspx", MessageType.Succeed);
+                this.Alert("项目信息修改完成。", "ProjectM.aspx", MessageType.Succeed);
 
             }
             this.panelClose.Visible = true;

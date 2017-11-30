@@ -74,29 +74,17 @@ public class SurveyInfoData
         con.Close();
         return i >= 1;
     }
-
-    public DataTable GetSurveyInfoByUserId(int userId) {
-        
-        DataTable dt = new DataTable(); //声明数据库表
-
+    public DataTable GetSurveyInfoByUserId(int userId)
+    {
+        DataTable dt = new DataTable();
         if (con.State == ConnectionState.Closed)
         {
             con.Open();
         }
-
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
         cmd.CommandType = CommandType.Text;
-        cmd.CommandText = "select " +
-            "distinct s.Id as Id," +
-            "s.Title as Title," +
-            "s.ProjectId as ProjectId," +
-            "p.ProjectName as ProjectName,s.SurveyDate as SurveyDate," +
-            "concat(p.ProjectName,s.Title) as FullTitle " +
-            "from " +
-            "Survey s join Project p " +
-            "on s.ProjectId = p.Id " +
-            "where p.UserId = " + userId;
+        cmd.CommandText = "select s.*,p.ProjectName from Survey s join Project p on s.ProjectId = p.Id";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         da.Fill(dt);
         con.Close();

@@ -20,14 +20,49 @@
     <script src="../Scripts/jquery-1.3.2.js" type="text/javascript"></script>
     <script src="../Scripts/PageInit.js" type="text/javascript"></script>
     <script src="../Plugin/lodop/LodopFuncs.js"></script>
-    <style type="text/css">
-        #print table{
-            border-right:1px solid black;border-bottom:1px solid black;
-        }
-        #print table td{
-            border-left:1px solid black;border-top:1px solid black;
-        } 
-    </style>
+        <script type="text/javascript">
+            $(function () {
+                dialog('<%= Message %>', '<%= Href %>');
+           });
+            //修改
+            function Edit(id) {
+                var url = 'AttendO.aspx';
+                if (id != "") {
+                    url = url + '?id=' + id;
+                }
+                art.dialog.open(url,
+                    {
+                        id: 'Attend',
+                        title: '考勤信息维护',
+                        fixed: true,
+                        top: 100,
+                        width: 1000,
+                        height: 250,
+                        resize: false,
+                        close: function () {
+                            if (art.dialog.data('message') != undefined) {
+                                art.dialog({
+                                    content: art.dialog.data('message').substring(7),
+                                    icon: "succeed",
+                                    title: "成功",
+                                    ok: function () {
+                                        $("#btnQuery").click();
+                                    }
+                                });
+                                art.dialog.removeData('message');
+                            }
+                        }
+                    }, false);
+            }
+            //GoTo详细信息
+            function Go(id) {
+                var url = 'AttendDetailM.aspx';
+                if (id != "") {
+                    url = url + '?id=' + id;
+                }
+                window.location.href = url;
+            }
+        </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -35,7 +70,7 @@
             <div style="float: right; text-align: right; margin-right: 5px;">
                 <input id="btnAdd" type="button" onclick="Edit('');" class="bu02" value="添加" />
             </div>
-            <h2>勘测日志</h2>
+            <h2>考勤表</h2>
         </div>
         <div>
             <table class="t02">
@@ -51,15 +86,65 @@
                         &nbsp;
                         </td>
                         <td style="text-align: right; width: 80px; font-weight: bold;">
-                        <asp:TextBox CssClass="in01" ID="TextBox2" onfocus="WdatePicker()" Width="80px" runat="server"></asp:TextBox>
+                        <asp:TextBox CssClass="in01" ID="StartDateTxt" onfocus="WdatePicker()" Width="80px" runat="server" Height="16px"></asp:TextBox>
                         </td>
                         <td style="text-align: right; width: 80px; font-weight: bold;">结束日期:
                         </td>
                         <td>
-                        <asp:TextBox CssClass="in01" ID="TextBox1" onfocus="WdatePicker()" Width="80px" runat="server"></asp:TextBox>&nbsp;&nbsp; <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询" OnClick="Button1_Click"/></td>
+                        <asp:TextBox CssClass="in01" ID="EndDateTxt" onfocus="WdatePicker()" Width="80px" runat="server"></asp:TextBox>&nbsp;&nbsp; <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询" OnClick="Button1_Click"/></td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+                <div style="margin: 5px 10px 0px 3px;">
+            <asp:GridView ID="GridView1" DataKeyNames="Id" AllowSorting="True"
+                runat="server" BorderColor="#A1B6E1" BorderWidth="1px" CellPadding="1" AutoGenerateColumns="False"
+                PageSize="15" 
+                ShowHeaderWhenEmpty="True" OnRowDataBound="GridView1_RowDataBound" OnRowCommand="GridView1_RowCommand">
+                <PagerSettings Mode="NextPreviousFirstLast" />
+                <FooterStyle CssClass="GridViewFooterStyle" />
+                <RowStyle CssClass="GridViewRowStyle" />
+                <SelectedRowStyle CssClass="GridViewSelectedRowStyle" BackColor="#FFCC33" />
+                <PagerStyle CssClass="GridViewPagerStyle" />
+                <AlternatingRowStyle CssClass="GridViewAlternatingRowStyle" />
+                <HeaderStyle CssClass="GridViewHeaderStyle" />
+                <EmptyDataRowStyle CssClass="GridViewEmptyStyle" />
+                <EmptyDataTemplate>
+                    暂无数据
+                </EmptyDataTemplate>
+                <Columns>
+                    <asp:TemplateField>
+                        <HeaderStyle Width="40px"></HeaderStyle>
+                        <HeaderTemplate>
+                            序号
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="labID" runat="server" Text='<%# Container.DataItemIndex+1 %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="ProjectName" HeaderText="项目名" ItemStyle-Width="280px"></asp:BoundField>
+                    <asp:BoundField DataField="Title" HeaderText="表名"></asp:BoundField>
+                    <asp:BoundField DataField="StartDate" ItemStyle-Width="80px" HeaderText="开始日期" />
+                    <asp:BoundField DataField="EndDate" ItemStyle-Width="80px" HeaderText="结束日期" />
+                    <asp:TemplateField HeaderText="详情" ItemStyle-Width="40px">
+                        <ItemTemplate>
+                            <img alt="详情" style="cursor: pointer;" src="../Images/bb-show.gif"  onclick="Go(<%# DataBinder.Eval(Container.DataItem, "Id")%>)"/>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="修改" ItemStyle-Width="40px">
+                        <ItemTemplate>
+                            <img alt="修改" style="cursor: pointer;" onclick="Edit(<%# DataBinder.Eval(Container.DataItem, "Id")%>)"
+                                src="../Images/bb-ud.gif" />
+                        </ItemTemplate>
+                        <ItemStyle Width="40px"></ItemStyle>
+                    </asp:TemplateField>
+                    <asp:ButtonField ItemStyle-Width="40px" Text="&lt;img src=&quot;../images/bb-del.gif&quot; alt=删除 &gt;"
+                        HeaderText="删除" CommandName="del">
+                        <ItemStyle Width="40px"></ItemStyle>
+                    </asp:ButtonField>
+                </Columns>
+                <PagerSettings Mode="NextPreviousFirstLast" Visible="False" />
+            </asp:GridView>
         </div>
     </form>
 </body>

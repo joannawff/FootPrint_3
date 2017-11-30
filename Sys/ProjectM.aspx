@@ -18,28 +18,9 @@
     <script src="../Scripts/jquery-1.3.2.js" type="text/javascript"></script>
     <script src="../Scripts/PageInit.js" type="text/javascript"></script>
     <script src="../Plugin/lodop/LodopFuncs.js"></script>
-    <style type="text/css">
-        #print table{
-            border-right:1px solid black;border-bottom:1px solid black;
-        }
-        #print table td{
-            border-left:1px solid black;border-top:1px solid black;
-        } 
-    </style>
-    <script type="text/javascript">
-        function DataShortFormat(time) {
-            time = time.replace("/Date(", "").replace(")/", "");
-            var datetime = new Date();
-            datetime.setTime(time);
-            var year = datetime.getFullYear();
-            var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-            var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-            var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-            var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-            var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-            return year + "-" + month + "-" + date ;
-        }
 
+    <script type="text/javascript">
+        
         $(function () {
             dialog('<%= Message %>', '<%= Href %>');
         });
@@ -54,36 +35,6 @@
             {
                 id: 'Project',
                 title: '项目信息维护',
-                fixed: true,
-                top: 100,
-                width: 1000,
-                height: 250,
-                resize: false,
-                close: function () {
-                    if (art.dialog.data('message') != undefined) {
-                        art.dialog({
-                            content: art.dialog.data('message').substring(7),
-                            icon: "succeed",
-                            title: "成功",
-                            ok: function () {
-                                $("#btnQuery").click();
-                            }
-                        });
-                        art.dialog.removeData('message');
-                    }
-                }
-            }, false);
-        }
-        //查看
-        function View(id) {
-            var url = 'ProjectV.aspx';
-            if (id != "") {
-                url = url + '?id=' + id;
-            }
-            art.dialog.open(url,
-            {
-                id: 'Project',
-                title: '项目信息',
                 fixed: true,
                 top: 100,
                 width: 1000,
@@ -122,7 +73,7 @@
                         <td style="text-align: right; width: 80px; font-weight: bold;">项目名：
                         </td>
                         <td style="text-align: left;">
-                            <asp:TextBox ID="txtCondition" class="in01" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtConditionProjectName" Width="98%" class="in01" runat="server"></asp:TextBox>
                         </td>
                         <td style="text-align: center; width: 120px;">
                             <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询" OnClick="btnQuery_Click"/>

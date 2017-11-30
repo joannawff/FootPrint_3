@@ -586,10 +586,11 @@ input.bu03on
 
 .in01
 {
-    border: #ffffff outset;
+    border-left: 0px outset #ffffff;
+    border-right: 0px outset #ffffff;
+    border-top: 0px outset #ffffff;
+    border-bottom: 1px outset #ffffff;
     font-size: 12px;
-    width: 98%;
-    border-width: 0px 0px 1px 0px;
     background-color: #fff;
     text-align: left;
 }

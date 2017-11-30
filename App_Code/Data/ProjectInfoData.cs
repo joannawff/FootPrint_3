@@ -22,9 +22,14 @@ public class ProjectInfoData
         //con.ConnectionString = "Initial Catalog=FootPrintDB;Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True";
 
     }
-    public DataTable GetProjectInfoByUserId(int userId) {
-        DataTable dt = new DataTable(); //声明数据库表  
-        String userName = HttpContext.Current.Session["userName"].ToString().Trim();
+    public DataTable GetProjectInfoByUserId(int userId,int roleCode) {
+        return GetProjectInfoByUserIdWithCondition(userId, roleCode, null);
+    }
+
+
+    public DataTable GetProjectInfoByUserIdWithCondition(int userId, int roleCode, String projectName)
+    {
+        DataTable dt = new DataTable(); //声明数据库表
         //获取数据源  
         if (con.State == ConnectionState.Closed)
         {
@@ -33,8 +38,7 @@ public class ProjectInfoData
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
         cmd.CommandType = CommandType.Text;
-        if(!userName.Equals("admin"))
-            cmd.CommandText = "select " +
+        cmd.CommandText = "select " +
             "p.Id as Id," +
             "p.ProjectName as ProjectName," +
             "u.UserName as UserName," +
@@ -43,17 +47,15 @@ public class ProjectInfoData
             "from " +
             "Project p join UserInfo u " +
             "on p.UserId=u.id " +
-            "where u.id = " + userId;
-        else
-            cmd.CommandText = "select " +
-            "p.Id as Id," +
-            "p.ProjectName as ProjectName," +
-            "u.UserName as UserName," +
-            "u.Tel as Tel," +
-            "p.Resident as Resident " +
-            "from " +
-            "Project p join UserInfo u " +
-            "on p.UserId=u.id ";
+            "where 1=1 ";//为了接过滤条件
+               
+        if (roleCode != 1)//非admin权限，userid过滤
+            cmd.CommandText += "and u.id = " + userId;
+        if (!String.IsNullOrEmpty(projectName))//项目名过滤
+        {
+            cmd.CommandText += "and p.ProjectName like '%" + projectName + "%'";//模糊过滤、模糊查询
+        }
+
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         da.Fill(dt);
         con.Close();
@@ -121,4 +123,5 @@ public class ProjectInfoData
         con.Close();
         return i >= 1;
     }
+
 }

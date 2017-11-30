@@ -13,7 +13,6 @@ public abstract class BasePage : Page
 {
     //页面ID
     protected string pageId = "";
-    public const string LOGIN_USER = "user";
 
 
     #region 构造函数

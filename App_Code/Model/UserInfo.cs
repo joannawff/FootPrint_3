@@ -15,24 +15,24 @@ public class UserInfo
         //
     }
 
-    public UserInfo(int id, string userName, string password, Role role, string tel)
+    public UserInfo(int id, string userName, string password, RoleInfo roleInfo, string tel)
     {
         this.id = id;
         this.userName = userName;
         this.password = password;
-        this.role = role;
+        this.roleInfo = roleInfo;
         this.tel = tel;
     }
 
     private int id;
     private String userName;
     private String password;
-    private Role role;
+    private RoleInfo roleInfo;
     private String tel;
 
     public int Id { get => id; set => id = value; }
     public string UserName { get => userName; set => userName = value; }
     public string Password { get => password; set => password = value; }
-    public Role Role { get => role; set => role = value; }
+    public RoleInfo RoleInfo { get => roleInfo; set => roleInfo = value; }
     public string Tel { get => tel; set => tel = value; }
 }
