@@ -63,6 +63,11 @@
             }
             window.location.href = url;
         }
+
+        function Close() {
+                dialog.close();
+        }
+
     </script>
 </head>
 <body>
@@ -80,12 +85,11 @@
                         <td style="text-align: right; width: 200px; font-weight: bold;"></td>
                         <td style="text-align: right; width: 80px; font-weight: bold;">项目名：
                         </td>
-                        <td style="text-align: left; width: 200px;">
-                            <asp:DropDownList ID="ddlProject" runat="server" CssClass="se01">
-                            </asp:DropDownList>
+                        <td style="text-align: left;">
+                            <asp:TextBox ID="txtConditionProjectName" Width="98%" class="in01" runat="server"></asp:TextBox>
                         </td>
                         <td style="text-align: center; width: 120px;">
-                            <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询"/>
+                            <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询" OnClick="btnQuery_Click"/>
                         </td>
                         <td style="text-align: center; width: 120px;"></td>
                     </tr>
@@ -118,7 +122,7 @@
                             <asp:Label ID="labID" runat="server" Text='<%# Container.DataItemIndex+1 %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="ProjectName" ItemStyle-Width="160px" HeaderText="项目名"></asp:BoundField>
+                    <asp:BoundField DataField="ProjectName" ItemStyle-Width="280px" HeaderText="项目名"></asp:BoundField>
                     <asp:BoundField DataField="Title" HeaderText="勘测内容"></asp:BoundField>
                     <asp:BoundField DataField="SurveyDate" ItemStyle-Width="80px" HeaderText="勘测日期" />
                     
@@ -134,15 +138,22 @@
                         </ItemTemplate>
                         <ItemStyle Width="40px"></ItemStyle>
                     </asp:TemplateField>
-                    <asp:ButtonField ItemStyle-Width="40px" Text="&lt;img src=&quot;../images/bb-del.gif&quot; alt=删除 &gt;"
-                        HeaderText="删除" CommandName="del">
-                        <ItemStyle Width="40px"></ItemStyle>
-                    </asp:ButtonField>
+                    <asp:TemplateField HeaderText="删除" ItemStyle-Width="40px">
+                         <ItemTemplate>
+                             <asp:ImageButton ID="imgBtn" OnClientClick="javascript:return confirm('数据删除后无法恢复，您确定删除整张勘测日志表吗？');" CommandName="del" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "Id")%>' runat="server" ImageUrl="../images/bb-del.gif" />
+                         </ItemTemplate>
+                         <ItemStyle Width="40px" />
+                     </asp:TemplateField>
                 </Columns>
                 <PagerSettings Mode="NextPreviousFirstLast" Visible="False" />
             </asp:GridView>
+            <asp:Panel ID="panelClose" runat="server" Visible="false">
+                <script type="text/javascript">
+                    parent.art.dialog.data('message', '<%= Message %>');
+                    Close();
+                </script>
+            </asp:Panel>
         </div>
-        <div id="print" style="display:none;"></div>
     </form>
 </body>
 </html>

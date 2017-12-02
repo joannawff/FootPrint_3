@@ -33,7 +33,10 @@ public class UserInfoData
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
         cmd.CommandType = CommandType.Text;
-        cmd.CommandText = "select u.id,u.UserName,u.Password,r.RoleCode from UserInfo u join Role r on u.RoleId=r.Id where UserName = '" + userName + "'";
+        cmd.CommandText = "select u.id,u.UserName,u.Password,r.RoleCode " +
+            "from UserInfo u join Role r " +
+            "on u.RoleId=r.Id " +
+            "where UserName = N'" + userName + "'";
         SqlDataReader dr = cmd.ExecuteReader();
         if (dr.Read())
         {

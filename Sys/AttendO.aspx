@@ -78,7 +78,42 @@
                         </div>
                     </td>
                 </tr>
-                
+                <tr>
+                    <td class="td01">制表人：
+                    </td>
+                    <td class="td02a">
+                        <asp:DropDownList ID="ddlCreater" runat="server" Width="80px" CssClass="se01">
+                        </asp:DropDownList>
+                    </td>
+                    <td class="td02b">
+                        <div id="ddlCreaterTip">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01">复查：
+                    </td>
+                    <td class="td02a">
+                        <asp:DropDownList ID="ddlReviewer" runat="server" Width="80px" CssClass="se01">
+                        </asp:DropDownList>
+                    </td>
+                    <td class="td02b">
+                        <div id="ddlReviewerTip">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01">审核：
+                    </td>
+                    <td class="td02a">
+                        <asp:DropDownList ID="ddlAuditor" runat="server" Width="80px" CssClass="se01">
+                        </asp:DropDownList>
+                    </td>
+                    <td class="td02b">
+                        <div id="ddlAuditorTip">
+                        </div>
+                    </td>
+                </tr>
                 <tr>
                     <td class="td01">开始日期：
                     </td>
@@ -98,6 +133,17 @@
                     </td>
                     <td class="td02b">
                         <div id="txtEndDateTip">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01">制表时间：
+                    </td>
+                    <td class="td02a">
+                        <asp:TextBox CssClass="in01" ID="txtCreateDate" onfocus="WdatePicker()" Width="80px" runat="server"></asp:TextBox>
+                    </td>
+                    <td class="td02b">
+                        <div id="txtCreateDateTip">
                         </div>
                     </td>
                 </tr>

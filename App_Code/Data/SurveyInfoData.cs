@@ -53,6 +53,35 @@ public class SurveyInfoData
         return surveyInfo;
     }
 
+    public DataTable GetSurveyInfoByUserId(int userId,int roleCode)
+    {
+        return GetSurveyInfoByUserIdWithCondition(userId, roleCode, null);
+    }
+    public DataTable GetSurveyInfoByUserIdWithCondition(int userId, int roleCode,String projectName)
+    {
+        DataTable dt = new DataTable();
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "select s.*,p.ProjectName " +
+            "from " +
+            "Survey s join Project p " +
+            "on s.ProjectId = p.Id " +
+            "where 1=1 ";
+        if (roleCode != 1)
+            cmd.CommandText += " and p.UserId = " + userId;
+        if (!String.IsNullOrEmpty(projectName))
+            cmd.CommandText += " and p.ProjectName like N'%" + projectName + "%'";
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        da.Fill(dt);
+        con.Close();
+        return dt;
+    }
+
     public bool CommitSurveyInfo(SurveyInfo surveyInfo)
     {
         if (con.State == ConnectionState.Closed)
@@ -74,9 +103,9 @@ public class SurveyInfoData
         con.Close();
         return i >= 1;
     }
-    public DataTable GetSurveyInfoByUserId(int userId)
+
+    public bool DeleteSurveyInfo(int surveyInfoId)
     {
-        DataTable dt = new DataTable();
         if (con.State == ConnectionState.Closed)
         {
             con.Open();
@@ -84,10 +113,9 @@ public class SurveyInfoData
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
         cmd.CommandType = CommandType.Text;
-        cmd.CommandText = "select s.*,p.ProjectName from Survey s join Project p on s.ProjectId = p.Id";
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        da.Fill(dt);
+        cmd.CommandText = "delete from Survey where id = " + surveyInfoId;
+        int i = cmd.ExecuteNonQuery();
         con.Close();
-        return dt;
+        return i >= 1;
     }
 }

@@ -10,54 +10,51 @@ public partial class Sys_AttendM : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        int userId;
-        int roleCode;
         if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
         {
-            Response.Write(" <script> parent.window.location.href= '../Login.aspx ' </script> ");
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
             return;
-        }
-        else
-        {
-            userId = int.Parse(Session["userId"].ToString().Trim());
-            roleCode = int.Parse(Session["roleCode"].ToString().Trim());
         }
         if (!IsPostBack)
         {
-            ProjectInfoData projectInfoData = new ProjectInfoData();
-            DataTable dt = projectInfoData.GetProjectInfoByUserId(userId,roleCode);
-            this.ddlProject.DataSource = dt;
-            this.ddlProject.DataTextField = "ProjectName";
-            this.ddlProject.DataValueField = "Id";
-            this.ddlProject.DataBind();
+            GridBind();
         }
-        GridBind();
     }
 
     private void GridBind()
     {
-        int userId = 0;
-        userId = int.Parse(Session["userId"].ToString().Trim());
+        int userId = int.Parse(Session["userId"].ToString().Trim());
+        int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
         DataTable dt = new DataTable();
         AttendInfoData attendInfoData = new AttendInfoData();
-        dt = attendInfoData.GetAttendInfosByUserId(userId);
+        dt = attendInfoData.GetAttendInfosByUserId(userId, roleCode);
         GridView1.DataSource = dt;
         GridView1.DataBind();
     }
 
 
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        AttendInfoData attendInfo = new AttendInfoData();
-        String[] date = this.StartDateTxt.Text.Split('-');
-
-        //surveyInfo.SurveyDate = new DateTime(int.Parse(date[0]), int.Parse(date[1]), int.Parse(date[2]))
-
-    }
+    
 
     protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-
+        switch (e.CommandName)
+        {
+            case "del":
+                try
+                {
+                    int attendId = int.Parse(e.CommandArgument.ToString().Trim());
+                    AttendInfoData attendInfoData = new AttendInfoData();
+                    attendInfoData.DeleteAttendInfo(attendId);
+                    this.Alert("删除成功！", MessageType.Succeed);
+                }
+                catch (Exception ex)
+                {
+                    this.Alert("删除失败！", MessageType.Error11);
+                    return;
+                }
+                break;
+        }
+        GridBind();
     }
 
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -67,5 +64,18 @@ public partial class Sys_AttendM : BasePage
             e.Row.Cells[3].Text = Convert.ToDateTime(e.Row.Cells[3].Text).ToString("yyyy-MM-dd");
             e.Row.Cells[4].Text = Convert.ToDateTime(e.Row.Cells[4].Text).ToString("yyyy-MM-dd");
         }
+    }
+
+    protected void btnQuery_Click(object sender, EventArgs e)
+    {
+        int userId = int.Parse(Session["userId"].ToString().Trim());
+        int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
+        String projectName = this.txtConditionProjectName.Text.Trim();
+        String title = this.txtConditionTitle.Text.Trim();
+        DataTable dt = new DataTable();
+        AttendInfoData attendInfoData = new AttendInfoData();
+        dt = attendInfoData.GetAttendInfosByUserIdWithCondition(userId, roleCode, projectName, title);
+        GridView1.DataSource = dt;
+        GridView1.DataBind();
     }
 }

@@ -26,6 +26,11 @@ public class AttendDetailInfoData
 
     public DataTable GetAttendDetailInfoByAttendanceId(int attendId)
     {
+        return GetAttendDetailInfoByAttendanceIdWithCondition(attendId, null);
+    }
+
+    public DataTable GetAttendDetailInfoByAttendanceIdWithCondition(int attendId,String userName)
+    {
         DataTable dt = new DataTable(); //声明数据库表
 
         if (con.State == ConnectionState.Closed)
@@ -40,11 +45,14 @@ public class AttendDetailInfoData
             "from " +
             "AttendDetail ad join UserInfo u on ad.UserId=u.Id " +
             "where AttendId = " + attendId;
+        if (!String.IsNullOrEmpty(userName))
+            cmd.CommandText += " and u.UserName like N'%" + userName + "'";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         da.Fill(dt);
         con.Close();
         return dt;
     }
+
     public AttendDetailInfo GetAttendDetailInfoByAttendDetailId(int attendDetialId)
     {
         AttendDetailInfo attendDetailInfo = new AttendDetailInfo();
@@ -289,4 +297,21 @@ public class AttendDetailInfoData
         con.Close();
         return i >= 1;
     }
+
+    public bool DeleteAttendDetailInfo(int attendDetailId)
+    {
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "delete from AttendDetail where id = " + attendDetailId;
+        int i = cmd.ExecuteNonQuery();
+        con.Close();
+        return i >= 1;
+    }
+
 }

@@ -11,15 +11,15 @@ public partial class Sys_ProjectM : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
+        {
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
+            return;
+        }
         if (!this.IsPostBack)
         {
-            if(Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
-            {
-                Response.Write(" <script> parent.window.location.href= '../Login.aspx ' </script> ");
-                return;
-            }
+            GridBind();
         }
-        GridBind();
 
     }
     private void GridBind()

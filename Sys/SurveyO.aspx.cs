@@ -13,7 +13,7 @@ public partial class Sys_SurveyO : BasePage
     {
         if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
         {
-            Response.Write(" <script> parent.window.location.href= '../Login.aspx ' </script> ");
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
             return;
         }
         id = Request["id"];

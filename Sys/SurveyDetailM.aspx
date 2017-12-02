@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SurveyDetailM.aspx.cs" Inherits="Sys_SurveyDetailM" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SurveyDetailM.aspx.cs" Inherits="Sys_SurveyDetailM" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -70,14 +70,13 @@
                 <tbody>
                     <tr style="height: 40px;">
                         <td style="text-align: right; width: 200px; font-weight: bold;"></td>
-                        <td style="text-align: right; width: 80px; font-weight: bold;">项目名：
+                        <td style="text-align: right; width: 120px; font-weight: bold;">组长兼安全员：
                         </td>
-                        <td style="text-align: left; width: 200px;">
-                            <asp:DropDownList ID="ddlProject" runat="server" CssClass="se01">
-                            </asp:DropDownList>
+                        <td style="text-align: left;">
+                            <asp:TextBox ID="txtConditionLeaderName" Width="98%" class="in01" runat="server"></asp:TextBox>
                         </td>
                         <td style="text-align: center; width: 120px;">
-                            <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询"/>
+                            <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询" OnClick="btnQuery_Click"/>
                         </td>
                         <td style="text-align: center; width: 120px;"></td>
                     </tr>
@@ -85,7 +84,8 @@
             </table>
         </div>
         <div style="margin: 5px 10px 0px 3px;"">
-             <asp:DataList ID="DataList" runat="server" OnItemDataBound="DataList_OnItemDataBound" HorizontalAlign="Center" RepeatDirection="Horizontal" RepeatLayout="Flow" >
+             <asp:DataList ID="DataList" runat="server" DataKeyField="Id" OnItemDataBound="DataList_OnItemDataBound" HorizontalAlign="Center"
+                 RepeatDirection="Horizontal" RepeatLayout="Flow" OnItemCommand="DataList_ItemCommand">
                 <HeaderTemplate>  
                 <table style="border-collapse: collapse;" class="t01">
                     <tr class="GridViewHeaderStyle" style="vertical-align:bottom">
@@ -108,7 +108,6 @@
                             <th valign:"bottom" width="70px">使用仪器及设备号</th>
                             <th valign:"bottom" width="100px">用车记录</th>
                             <th valign:"bottom" width="auto">备注</th>
-                            <th valign:"bottom" width="40px">详情</th>
                             <th valign:"bottom" width="40px">修改</th>
                             <th valign:"bottom" width="40px">删除</th>
                         </tr>  
@@ -127,9 +126,8 @@
                         <td><asp:Label ID="labDevice" runat="server" Text='<%# Eval("Device")%>'></asp:Label></td>
                         <td><asp:Label ID="labVehicleRecord" runat="server" Text='<%# Eval("VehicleRecord")%>'></asp:Label></td>
                         <td><asp:Label ID="labRemark" runat="server" Text='<%# Eval("Remark")%>'></asp:Label></td>
-                        <td><img alt="详情" style="cursor: pointer;" src="../Images/bb-show.gif" /></td>
                         <td><img alt="修改" style="cursor: pointer;" onclick="Edit(<%# DataBinder.Eval(Container.DataItem, "Id")%>)" src="../Images/bb-ud.gif" /></td>
-                        <td><asp:ImageButton ID="del" runat="server" ImageUrl="../images/bb-del.gif" /></td>
+                        <td style="width:40px"><asp:ImageButton ID="del" runat="server" ImageUrl="../images/bb-del.gif" OnClientClick="javascript:return confirm('数据删除后无法恢复，您确定删除？');" CommandName="del"  /></td>
                     </tr> 
                 </ItemTemplate>
                 <AlternatingItemTemplate>
@@ -146,13 +144,15 @@
                         <td><asp:Label ID="labDevice" runat="server" Text='<%# Eval("Device")%>'></asp:Label></td>
                         <td><asp:Label ID="labVehicleRecord" runat="server" Text='<%# Eval("VehicleRecord")%>'></asp:Label></td>
                         <td><asp:Label ID="labRemark" runat="server" Text='<%# Eval("Remark")%>'></asp:Label></td>
-                        <td style="width:40px"><img alt="详情" style="cursor: pointer;" src="../Images/bb-show.gif" /></td>
                         <td style="width:40px"><img alt="修改" style="cursor: pointer;" onclick="Edit(<%# DataBinder.Eval(Container.DataItem, "Id")%>)" src="../Images/bb-ud.gif" /></td>
-                        <td style="width:40px"><asp:ImageButton ID="del" runat="server" ImageUrl="../images/bb-del.gif" CommandName="del" CommandArgument='<%# Eval("SortDataParticipants")%>'/></td>
+                        <td style="width:40px"><asp:ImageButton ID="del" runat="server" ImageUrl="../images/bb-del.gif" OnClientClick="javascript:return confirm('数据删除后无法恢复，您确定删除？');" CommandName="del"  /></td>
                     </tr> 
                 </AlternatingItemTemplate>
                 <FooterTemplate>
-                    </table>  
+                    </table>
+                    <asp:Panel style="margin:0px;" ID="Panel1" CssClass="GridViewEmptyStyle" runat="server" Visible="<%#bool.Parse((DataList.Items.Count==0).ToString()) %>">
+                        <table style="width:100%;height:100%;"><tr><td style="text-align:center;vertical-align:middle">暂无数据</td></tr></table>
+                    </asp:Panel>
                 </FooterTemplate> 
             </asp:DataList>
         </div>

@@ -70,14 +70,13 @@
                 <tbody>
                     <tr style="height: 40px;">
                         <td style="text-align: right; width: 200px; font-weight: bold;"></td>
-                        <td style="text-align: right; width: 80px; font-weight: bold;">考勤表：
+                        <td style="text-align: right; width: 80px; font-weight: bold;">姓名：
                         </td>
-                        <td style="text-align: left; width: 200px;">
-                            <asp:DropDownList ID="ddlAttendance" runat="server" CssClass="se01">
-                            </asp:DropDownList>
+                        <td style="text-align: left;">
+                            <asp:TextBox ID="txtConditionUserName" class="in01" Width="95%" runat="server"></asp:TextBox>
                         </td>
                         <td style="text-align: center; width: 120px;">
-                            <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询"/>
+                            <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询" OnClick="btnQuery_Click"/>
                         </td>
                         <td style="text-align: center; width: 120px;"></td>
                     </tr>
@@ -85,7 +84,10 @@
             </table>
         </div>
         <div style="margin: 5px 10px 0px 3px;"">
-             <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" BorderColor="#A1B6E1" BorderWidth="1px" CellPadding="1" DataKeyNames="Id" OnRowCommand="GridView1_RowCommand" OnRowDataBound="GridView1_RowDataBound" PageSize="15" ShowHeaderWhenEmpty="True">
+             <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" BorderColor="#A1B6E1" 
+                 BorderWidth="1px" CellPadding="1" DataKeyNames="Id" 
+                 OnRowCommand="GridView1_RowCommand" OnRowDataBound="GridView1_RowDataBound" 
+                 PageSize="15" ShowHeaderWhenEmpty="True">
                  <PagerSettings Mode="NextPreviousFirstLast" />
                  <FooterStyle CssClass="GridViewFooterStyle" />
                  <RowStyle CssClass="GridViewRowStyle" />
@@ -182,9 +184,12 @@
                          </ItemTemplate>
                          <ItemStyle Width="40px" />
                      </asp:TemplateField>
-                     <asp:ButtonField CommandName="del" HeaderText="删除" ItemStyle-Width="40px" Text="&lt;img src=&quot;../images/bb-del.gif&quot; alt=删除 &gt;">
-                     <ItemStyle Width="40px" />
-                     </asp:ButtonField>
+                     <asp:TemplateField HeaderText="删除" ItemStyle-Width="40px">
+                         <ItemTemplate>
+                             <asp:ImageButton ID="imgBtn" OnClientClick="javascript:return confirm('数据删除后无法恢复，您确定删除？');" CommandName="del" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "Id")%>' runat="server" ImageUrl="../images/bb-del.gif" />
+                         </ItemTemplate>
+                         <ItemStyle Width="40px" />
+                     </asp:TemplateField>
                  </Columns>
                  <PagerSettings Mode="NextPreviousFirstLast" Visible="False" />
              </asp:GridView>

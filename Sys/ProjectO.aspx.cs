@@ -14,7 +14,7 @@ public partial class Sys_ProjectO : BasePage
     {
         if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
         {
-            Response.Write(" <script> parent.window.location.href= '../Login.aspx ' </script> ");
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
         }
         id = Request["id"];
         if (!this.IsPostBack)

@@ -50,10 +50,10 @@ public class ProjectInfoData
             "where 1=1 ";//为了接过滤条件
                
         if (roleCode != 1)//非admin权限，userid过滤
-            cmd.CommandText += "and u.id = " + userId;
+            cmd.CommandText += " and u.id = " + userId;
         if (!String.IsNullOrEmpty(projectName))//项目名过滤
         {
-            cmd.CommandText += "and p.ProjectName like '%" + projectName + "%'";//模糊过滤、模糊查询
+            cmd.CommandText += " and p.ProjectName like N'%" + projectName + "%'";//模糊过滤、模糊查询
         }
 
         SqlDataAdapter da = new SqlDataAdapter(cmd);

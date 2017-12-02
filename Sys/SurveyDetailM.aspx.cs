@@ -10,34 +10,16 @@ public partial class Sys_SurveyDetailM : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        int userId = 0;
-        int roleCode = 0;
         if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
         {
-            Response.Write(" <script> parent.window.location.href= '../Login.aspx ' </script> ");
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
             return;
-        }
-        else
-        {
-            userId = int.Parse(Session["userId"].ToString().Trim());
-            roleCode = int.Parse(Session["roleCode"].ToString().Trim());
         }
         if (!Page.IsPostBack)
         {
-            DropDownListBind(userId,roleCode);
             this.hfSurveyId.Value = Request["id"].Trim();
+            GridBind();
         }
-        GridBind();
-    }
-
-    private void DropDownListBind(int userId,int roleCode)
-    {
-        DataTable dt = new DataTable();
-        dt = new ProjectInfoData().GetProjectInfoByUserId(userId, roleCode);
-        this.ddlProject.DataSource = dt;
-        this.ddlProject.DataTextField = "ProjectName";
-        this.ddlProject.DataValueField = "Id";
-        this.ddlProject.DataBind();
     }
 
     private void GridBind()
@@ -60,5 +42,34 @@ public partial class Sys_SurveyDetailM : BasePage
                 labOffTime.Text = "-";
         }
 
+    }
+
+    protected void btnQuery_Click(object sender, EventArgs e)
+    {
+        SurveyDetailInfoData surveyDetailInfoData = new SurveyDetailInfoData();
+        DataTable dt = new DataTable();
+        dt = surveyDetailInfoData.GetSurveyDetailBySurveyIdWithCondition(int.Parse(this.hfSurveyId.Value.Trim()), this.txtConditionLeaderName.Text.Trim());
+        this.DataList.DataSource = dt;
+        this.DataList.DataBind();
+    }
+
+    protected void DataList_ItemCommand(object source, DataListCommandEventArgs e)
+    {
+        if(e.CommandName=="del")
+        {
+            try
+            {
+                int surveyDetailId = int.Parse(this.DataList.DataKeys[e.Item.ItemIndex].ToString().Trim());
+                SurveyDetailInfoData surveyDetailInfoData = new SurveyDetailInfoData();
+                surveyDetailInfoData.DeleteSurveyDetailInfo(surveyDetailId);
+                this.Alert("删除成功！", MessageType.Succeed);
+                GridBind();
+            }
+            catch (Exception ex)
+            {
+                this.Alert("删除失败！", MessageType.Error11);
+            }
+        }
+        GridBind();
     }
 }

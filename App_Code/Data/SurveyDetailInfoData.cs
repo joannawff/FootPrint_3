@@ -20,8 +20,12 @@ public class SurveyDetailInfoData
         con.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; AttachDbFilename=|DataDirectory|\\FootPrint.mdf; Integrated Security = True";
         //con.ConnectionString = "Initial Catalog=FootPrintDB;Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True";
     }
-
     public DataTable GetSurveyDetailBySurveyId(int surveyId)
+    {
+        return GetSurveyDetailBySurveyIdWithCondition(surveyId,null);
+    }
+
+    public DataTable GetSurveyDetailBySurveyIdWithCondition(int surveyId,String leaderName)
     {
 
         DataTable dt = new DataTable(); //声明数据库表
@@ -37,6 +41,8 @@ public class SurveyDetailInfoData
         cmd.CommandText = "select * from " +
             "SurveyDetail "+
             "where SurveyId = " + surveyId;
+        if (!String.IsNullOrEmpty(leaderName))
+            cmd.CommandText += " and LeaderAndSecurityOfficer like N'%" + leaderName + "%'";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         da.Fill(dt);
         con.Close();
@@ -84,7 +90,7 @@ public class SurveyDetailInfoData
         }
     }
 
-    public bool CommitProjectInfo(SurveyDetailInfo surveyDetailInfo)
+    public bool CommitsurveyDetailInfo(SurveyDetailInfo surveyDetailInfo)
     {
         if (con.State == ConnectionState.Closed)
         {
@@ -128,4 +134,17 @@ public class SurveyDetailInfoData
         return i >= 1;
     }
 
+    public bool DeleteSurveyDetailInfo(int surveyDetailId)
+    {
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "delete from SurveyDetail where id = " + surveyDetailId;
+        int i = cmd.ExecuteNonQuery();
+        return i >= 1;
+    }
 }

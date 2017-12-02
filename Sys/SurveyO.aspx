@@ -29,6 +29,7 @@
         $(document).ready(function () {
             $.formValidator.initConfig({});
             $("#Title").formValidator({ onshow: "请输入勘测内容", onfocus: "勘测内容不能为空", oncorrect: "输入正确" }).regexValidator({ regexp: "notempty", datatype: "enum", onerror: "错误" });
+            $("#SurveyDate").formValidator({ onshow: "请输入勘测时间", onfocus: "勘测时间不能为空", oncorrect: "输入正确" }).regexValidator({ regexp: "notempty", datatype: "enum", onerror: "错误" });
             $.formValidator.initConfig({ validatorgroup: "2" });
         });
 
@@ -84,7 +85,7 @@
                         <asp:TextBox CssClass="in01" ID="SurveyDate" onfocus="WdatePicker()" Width="80px" runat="server"></asp:TextBox>
                     </td>
                     <td class="td02b">
-                        <div id="ResidentTip">
+                        <div id="SurveyDateTip">
                         </div>
                     </td>
                 </tr>

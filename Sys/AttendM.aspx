@@ -35,9 +35,9 @@
                         id: 'Attend',
                         title: '考勤信息维护',
                         fixed: true,
-                        top: 100,
+                        top: 80,
                         width: 1000,
-                        height: 250,
+                        height: 350,
                         resize: false,
                         close: function () {
                             if (art.dialog.data('message') != undefined) {
@@ -79,19 +79,17 @@
                         <td style="text-align: right; width: 80px; font-weight: bold;">项目名：
                         </td>
                         <td style="text-align: left; width: 200px;">
-                            <asp:DropDownList ID="ddlProject" runat="server" CssClass="se01">
-                            </asp:DropDownList>
+                            <asp:TextBox ID="txtConditionProjectName" Width="98%" class="in01" runat="server"></asp:TextBox>
                         </td>
-                        <td style="text-align: right; width: 80px; font-weight: bold;">开始日期:
-                        &nbsp;
+                        <td style="text-align: right; width: 80px; font-weight: bold;">表名：
                         </td>
-                        <td style="text-align: right; width: 80px; font-weight: bold;">
-                        <asp:TextBox CssClass="in01" ID="StartDateTxt" onfocus="WdatePicker()" Width="80px" runat="server" Height="16px"></asp:TextBox>
+                        <td style="text-align: left; width: auto;">
+                            <asp:TextBox ID="txtConditionTitle" class="in01" Width="95%" runat="server"></asp:TextBox>
                         </td>
-                        <td style="text-align: right; width: 80px; font-weight: bold;">结束日期:
+                        <td style="text-align: center; width: 120px;">
+                            <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询" OnClick="btnQuery_Click"/>
                         </td>
-                        <td>
-                        <asp:TextBox CssClass="in01" ID="EndDateTxt" onfocus="WdatePicker()" Width="80px" runat="server"></asp:TextBox>&nbsp;&nbsp; <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询" OnClick="Button1_Click"/></td>
+                        <td style="text-align: center; width: 120px;"></td>
                     </tr>
                 </tbody>
             </table>
@@ -138,10 +136,13 @@
                         </ItemTemplate>
                         <ItemStyle Width="40px"></ItemStyle>
                     </asp:TemplateField>
-                    <asp:ButtonField ItemStyle-Width="40px" Text="&lt;img src=&quot;../images/bb-del.gif&quot; alt=删除 &gt;"
-                        HeaderText="删除" CommandName="del">
-                        <ItemStyle Width="40px"></ItemStyle>
-                    </asp:ButtonField>
+                    <asp:TemplateField HeaderText="删除" ItemStyle-Width="40px">
+                         <ItemTemplate>
+                             <asp:ImageButton ID="imgBtn" OnClientClick="javascript:return confirm('数据删除后无法恢复，您确定删除整张考勤日志表吗？');" 
+                                 CommandName="del" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "Id")%>' runat="server" ImageUrl="../images/bb-del.gif" />
+                         </ItemTemplate>
+                         <ItemStyle Width="40px" />
+                     </asp:TemplateField>
                 </Columns>
                 <PagerSettings Mode="NextPreviousFirstLast" Visible="False" />
             </asp:GridView>

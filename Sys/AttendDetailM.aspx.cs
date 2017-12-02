@@ -13,30 +13,21 @@ public partial class Sys_AttendDetailM : BasePage
     {
         if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
         {
-            Response.Write(" <script> parent.window.location.href= '../Login.aspx ' </script> ");
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
             return;
         }
 
         if (!this.IsPostBack)
         {
-            
             this.hfAttendId.Value = Request["id"].Trim();
-            int userId = int.Parse(Session["userId"].ToString().Trim());
-            DataTable dt = new DataTable();
-            dt = new AttendInfoData().GetAttendInfosByUserId(userId);
-            this.ddlAttendance.DataTextField = "Title";
-            this.ddlAttendance.DataValueField = "Id";
-            this.ddlAttendance.DataSource = dt;
-            this.ddlAttendance.DataBind();
+            GridInti();
+            GridBind();
         }
-        GridBind();
     }
 
-    private void GridBind()
+    public void GridInti()
     {
         int attendId = int.Parse(this.hfAttendId.Value);
-        DataTable dt = new DataTable();
-        dt = new AttendDetailInfoData().GetAttendDetailInfoByAttendanceId(attendId);
         //调整GridView结构
         AttendInfo attendInfo = new AttendInfo();
         attendInfo = new AttendInfoData().GetAttendInfoByAttendId(attendId);
@@ -50,22 +41,22 @@ public partial class Sys_AttendDetailM : BasePage
         if (startYear < endYear || startMonth < endMonth)
         {
             int curMonthEndDay = DateTime.DaysInMonth(startYear, startMonth);
-            for(int idx = 2;idx<startDay+1;idx++)
+            for (int idx = 2; idx < startDay + 1; idx++)
             {
                 this.GridView1.Columns[idx].Visible = false;
             }
-            for(int idx = curMonthEndDay+2; idx <= 32; idx++)
+            for (int idx = curMonthEndDay + 2; idx <= 32; idx++)
             {
                 this.GridView1.Columns[idx].Visible = false;
             }
-            for(int idx = endDay+34;idx<=63;idx++)
+            for (int idx = endDay + 34; idx <= 63; idx++)
             {
                 this.GridView1.Columns[idx].Visible = false;
             }
         }
         else
         {
-            for (int idx = 2; idx < startDay+1; idx++)
+            for (int idx = 2; idx < startDay + 1; idx++)
             {
                 this.GridView1.Columns[idx].Visible = false;
             }
@@ -74,9 +65,15 @@ public partial class Sys_AttendDetailM : BasePage
                 this.GridView1.Columns[idx].Visible = false;
             }
         }
+    }
+
+    private void GridBind()
+    {
+        int attendId = int.Parse(this.hfAttendId.Value);
+        DataTable dt = new DataTable();
+        dt = new AttendDetailInfoData().GetAttendDetailInfoByAttendanceId(attendId);
         this.GridView1.DataSource = dt;
         this.GridView1.DataBind();
-        this.ddlAttendance.SelectedIndex = this.ddlAttendance.Items.IndexOf(this.ddlAttendance.Items.FindByValue(attendId + ""));
     }
 
     public String GetStartAndEndDate()
@@ -91,11 +88,40 @@ public partial class Sys_AttendDetailM : BasePage
 
     protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-
+        switch (e.CommandName)
+        {
+            case "del":
+                try
+                {
+                    int attendDetailId = int.Parse(e.CommandArgument.ToString().Trim());
+                    AttendDetailInfoData attendDetailInfoData = new AttendDetailInfoData();
+                    attendDetailInfoData.DeleteAttendDetailInfo(attendDetailId);
+                    this.Alert("删除成功！", MessageType.Succeed);
+                }
+                catch (Exception ex)
+                {
+                    this.Alert("删除失败！", MessageType.Error11);
+                    return;
+                }
+                break;
+        }
+        GridBind();
     }
 
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            ;
+        }
+    }
 
+    protected void btnQuery_Click(object sender, EventArgs e)
+    {
+        int attendId = int.Parse(this.hfAttendId.Value);
+        DataTable dt = new DataTable();
+        dt = new AttendDetailInfoData().GetAttendDetailInfoByAttendanceIdWithCondition(attendId, this.txtConditionUserName.Text.Trim());
+        this.GridView1.DataSource = dt;
+        this.GridView1.DataBind();
     }
 }
