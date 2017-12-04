@@ -14,6 +14,7 @@ public partial class Sys_SurveyDetailO : BasePage
         if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
         {
             Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
+            return;
         }
         id = Request["id"];
         if (!this.IsPostBack)

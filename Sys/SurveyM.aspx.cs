@@ -10,9 +10,10 @@ public partial class Sys_SurveyM : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals(""))
+        if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals("") || Session["roleCode"] == null || Session["roleCode"].ToString().Trim().Equals(""))
         {
             Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
+            return;
         }
         if (!this.IsPostBack)
         {
@@ -23,16 +24,14 @@ public partial class Sys_SurveyM : BasePage
 
     private void GridBind()
     {
-        int userid = int.Parse(Session["userId"].ToString().Trim());
-        int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
-        /*
-        if(roleCode>=2)//不是管理员或者项目负责人
+        if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals("") || Session["roleCode"] == null || Session["roleCode"].ToString().Trim().Equals(""))
         {
-            this.Alert("权限不足。", "../IndexRight.aspx", MessageType.Warning);
-            this.panelClose.Visible = true;
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
             return;
         }
-        */
+        int userid = int.Parse(Session["userId"].ToString().Trim());
+        int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
+        
         DataTable dt = new DataTable();
         SurveyInfoData surveyInfoData = new SurveyInfoData();
         dt = surveyInfoData.GetSurveyInfoByUserId(userid, roleCode);
@@ -72,6 +71,11 @@ public partial class Sys_SurveyM : BasePage
 
     protected void btnQuery_Click(object sender, EventArgs e)
     {
+        if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals("") || Session["roleCode"] == null || Session["roleCode"].ToString().Trim().Equals(""))
+        {
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
+            return;
+        }
         int userid = int.Parse(Session["userId"].ToString().Trim());
         int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
         DataTable dt = new DataTable();

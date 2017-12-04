@@ -15,6 +15,11 @@ public partial class Sys_AttendM : BasePage
             Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
             return;
         }
+        else if (int.Parse(Session["roleCode"].ToString().Trim()) > 2)
+        {
+            this.Alert("权限不足。", "../IndexRight.aspx", MessageType.Warning);
+            return;
+        }
         if (!IsPostBack)
         {
             GridBind();
@@ -23,6 +28,11 @@ public partial class Sys_AttendM : BasePage
 
     private void GridBind()
     {
+        if(Session["userId"] == null || Session["userId"].ToString().Trim().Equals("")|| Session["roleCode"] == null || Session["roleCode"].ToString().Trim().Equals(""))
+        {
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
+            return;
+        }
         int userId = int.Parse(Session["userId"].ToString().Trim());
         int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
         DataTable dt = new DataTable();
@@ -68,6 +78,11 @@ public partial class Sys_AttendM : BasePage
 
     protected void btnQuery_Click(object sender, EventArgs e)
     {
+        if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals("") || Session["roleCode"] == null || Session["roleCode"].ToString().Trim().Equals(""))
+        {
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
+            return;
+        }
         int userId = int.Parse(Session["userId"].ToString().Trim());
         int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
         String projectName = this.txtConditionProjectName.Text.Trim();

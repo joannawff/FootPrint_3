@@ -11,39 +11,7 @@
     <link href="Plugin/ddaccordion/ddaccordion.css" rel="stylesheet" />
     <script src="Scripts/Services.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(function () {
-            var menu = [{
-                "text": "业务管理", "submenu": [
-                    { "text": "项目管理", "href": "Sys/ProjectM.aspx" },
-                    { "text": "勘测日志", "href": "Sys/SurveyM.aspx" },
-                    { "text": "考勤日志", "href": "Sys/AttendM.aspx" }
-                ]
-            },
-            {
-                "text": "数据维护", "submenu": [
-                    { text: "用户管理", href: "#" },
-                ]
-            },
-            {
-                "text": "个人信息", "submenu": [
-                    { text: "个人信息", href: "#" },
-                    { text: "密码修改", href: "#" }]
-            }];
-
-
-            $.each(menu, function (index, d1) {
-                $("#main").append("<h3 class='menuheader expandable'>" + d1.text + "</h3>");
-                var $li = $("<ul class='categoryitems'><ul/>");
-                var data = d1.submenu
-                $.each(data, function (index, d2) {
-                    $li.append("<li><a href='" + d2.href + "'>" + d2.text + "</a></li>");
-                })
-                $("#main").append($li);
-                //alert($("#main").html());
-            })
-
-        });
-
+        //menu(菜单栏的控制--各种css+js事件)
         ddaccordion.init({
             headerclass: "expandable", //Shared CSS class name of headers group that are expandable
             contentclass: "categoryitems", //Shared CSS class name of contents group
@@ -72,8 +40,30 @@
         <div style="height: 27px; line-height :27px; vertical-align :central; width: 172px; font-size: 14px; background-image: url('images/left-bg03.gif'); background-repeat: no-repeat; text-align: center; font-weight: bolder; color: #ff0">
             系统菜单
             
-        </div><asp:HiddenField ID="hfMenu" runat="server"></asp:HiddenField>
+        </div>
         <div id="main" class="arrowlistmenu">
+            <asp:Panel ID="panelProject" runat="server">
+                <h3 class='menuheader expandable'>业务管理</h3>
+                <ul class='categoryitems'>
+                    <li><a href="Sys/SurveyM.aspx">勘测日志</a></li>
+                    <li><a href="Sys/AttendM.aspx">考勤日志</a></li>
+                </ul>
+            </asp:Panel>
+            <asp:Panel ID="panelData" runat="server">
+                <h3 class='menuheader expandable'>数据维护</h3>
+                <ul class='categoryitems'>
+                    <li><a href="Sys/ProjectM.aspx">项目管理</a></li>
+                    <li><a href="Sys/UserInfoM.aspx">用户管理</a></li>
+                </ul>
+            </asp:Panel>
+            <asp:Panel ID="panelEmployee" runat="server">
+            <h3 class='menuheader expandable'>个人信息</h3>
+                <ul class='categoryitems'>
+                    <li><a href="Sys/UserInfoD.aspx">个人信息</a></li>
+                    <li><a href="Sys/ChangePassword.aspx">密码修改</a></li>
+                    <li><a href="Sys/AttendInfoM.aspx">个人考勤</a></li>
+                </ul>
+            </asp:Panel>
         </div>
         <div>
         </div>

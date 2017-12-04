@@ -4,8 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Services;
+using System.Web.SessionState;
 
-public partial class Index : System.Web.UI.Page
+public partial class Index : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -13,5 +15,17 @@ public partial class Index : System.Web.UI.Page
         {
             Response.Write(" <script> parent.window.location.href= 'Login.aspx ' </script> ");
         }
+        else
+        {
+            this.userName.Text = Session["userName"].ToString();
+        }
+    }
+    
+    [WebMethod(true)]
+    public static String LoginOffHelper()
+    {
+        HttpContext.Current.Session.RemoveAll();
+        HttpContext.Current.Session.Abandon();
+        return "";
     }
 }

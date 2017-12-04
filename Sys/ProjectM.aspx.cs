@@ -24,6 +24,11 @@ public partial class Sys_ProjectM : BasePage
     }
     private void GridBind()
     {
+        if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals("") || Session["roleCode"] == null || Session["roleCode"].ToString().Trim().Equals(""))
+        {
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
+            return;
+        }
         int useId = int.Parse(Session["userId"].ToString().Trim());
         int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
         DataTable dt = new DataTable();
@@ -35,6 +40,11 @@ public partial class Sys_ProjectM : BasePage
 
     protected void btnQuery_Click(object sender, EventArgs e)
     {
+        if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals("") || Session["roleCode"] == null || Session["roleCode"].ToString().Trim().Equals(""))
+        {
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
+            return;
+        }
         int useId = int.Parse(Session["userId"].ToString().Trim());
         int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
         DataTable dt = new DataTable();

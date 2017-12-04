@@ -32,28 +32,28 @@
                 url = url + '&id=' + id;
             }
             art.dialog.open(url,
-                {
-                    id: 'AttendDetail',
-                    title: '考勤信息维护',
-                    fixed: true,
-                    top: 60,
-                    width: 1000,
-                    height: 350,
-                    resize: false,
-                    close: function () {
-                        if (art.dialog.data('message') != undefined) {
-                            art.dialog({
-                                content: art.dialog.data('message').substring(7),
-                                icon: "succeed",
-                                title: "成功",
-                                ok: function () {
-                                    $("#btnQuery").click();
-                                }
-                            });
-                            art.dialog.removeData('message');
-                        }
+            {
+                id: 'AttendDetail',
+                title: '考勤信息维护',
+                fixed: true,
+                top: 60,
+                width: 1000,
+                height: 350,
+                resize: false,
+                close: function () {
+                    if (art.dialog.data('message') != undefined) {
+                        art.dialog({
+                            content: art.dialog.data('message').substring(7),
+                            icon: "succeed",
+                            title: "成功",
+                            ok: function () {
+                                $("#btnQuery").click();
+                            }
+                        });
+                        art.dialog.removeData('message');
                     }
-                }, false);
+                }
+            }, false);
         }
     </script>
 </head>

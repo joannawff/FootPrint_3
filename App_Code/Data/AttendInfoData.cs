@@ -125,6 +125,7 @@ public class AttendInfoData
             cmd.CommandText = "insert into Attendance values('" + attendInfo.StartDate.ToString("yyyy-MM-dd") + "','" +
                 attendInfo.EndDate.ToString("yyyy-MM-dd") + "'," +
                 "N'" + attendInfo.Title + "'," +
+                attendInfo.ProjectInfo.Id + "," +
                 attendInfo.Creater.Id + "," +
                 attendInfo.Reviewer.Id + "," +
                 attendInfo.Auditor.Id + "," +

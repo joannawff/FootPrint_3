@@ -67,7 +67,6 @@ public partial class Sys_SurveyO : BasePage
         else
         {
             this.Alert("增项信息修改完成。", "SurveyRegisterM.aspx", MessageType.Succeed);
-
         }
         this.panelClose.Visible = true;
         /*}
