@@ -179,8 +179,8 @@
             <table style="width: 100%; height: 110px; background-image: url('./Images/logo-bg.gif')"
                 cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                    <td  colspan="9" style="height: 60px;">
-                        &nbsp;</td>                                   
+                    <td  colspan="9" style="height: 60px; text-align:left">
+                        <img src="Images/TextTitle.PNG" style="height:60px" /></td>                                   
                 </tr>
                 <tr style="height: 30px; background-image: url('./Images/bg-logo.gif')">
                     <td id="time" style="font-weight: bold; text-align: left; font-size: 12px; width:200px">
