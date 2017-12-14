@@ -110,8 +110,8 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="UserName"  HeaderText="用户名"></asp:BoundField>
-                <asp:BoundField DataField="RoleName" ItemStyle-Width="60px" HeaderText="角色"></asp:BoundField>
-                <asp:TemplateField HeaderText="修改" ItemStyle-Width="40px">
+                <asp:BoundField DataField="RoleName" ItemStyle-Width="100px" HeaderText="角色"></asp:BoundField>
+                <asp:TemplateField HeaderText="修改" ItemStyle-Width="60px">
                     <ItemTemplate>
                         <img alt="修改" style="cursor: pointer;" onclick="Edit(<%# DataBinder.Eval(Container.DataItem, "Id")%>)"
                             src="../Images/bb-ud.gif" />

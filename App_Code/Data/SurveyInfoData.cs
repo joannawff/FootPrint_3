@@ -53,6 +53,35 @@ public class SurveyInfoData
         return surveyInfo;
     }
 
+    /*
+    public DataTable GetSurveyInfoByUserId(int projectId, int userId, int roleCode)
+    {
+        return GetSurveyInfoByUserIdWithCondition(projectId, userId, roleCode);
+    }
+    public DataTable GetSurveyInfoByUserIdWithCondition(int projectId, int userId, int roleCode)
+    {
+        DataTable dt = new DataTable();
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "select s.*,p.ProjectName " +
+            "from " +
+            "Survey s join Project p " +
+            "on s.ProjectId = p.Id " +
+            "where s.ProjectId = " + projectId;
+        if (roleCode != 1)
+            cmd.CommandText += " and p.UserId = " + userId;
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        da.Fill(dt);
+        con.Close();
+        return dt;
+    }
+    */
+
     public DataTable GetSurveyInfoByUserId(int userId,int roleCode)
     {
         return GetSurveyInfoByUserIdWithCondition(userId, roleCode, null);
@@ -79,6 +108,22 @@ public class SurveyInfoData
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         da.Fill(dt);
         con.Close();
+        return dt;
+    }
+
+    public DataTable GetSurveyInfoByProjectId(int projectId)
+    {
+        DataTable dt = new DataTable();
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "select * " +
+            "from Survey " +
+            "where ProjectId = " + projectId;
         return dt;
     }
 

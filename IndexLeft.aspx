@@ -47,6 +47,7 @@
                 <ul class='categoryitems'>
                     <li><a href="Sys/SurveyM.aspx">勘测日志</a></li>
                     <li><a href="Sys/AttendM.aspx">考勤日志</a></li>
+                    <li><a href="Sys/ReportM.aspx">报表管理</a></li>
                 </ul>
             </asp:Panel>
             <asp:Panel ID="panelData" runat="server">

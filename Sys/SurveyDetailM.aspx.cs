@@ -72,4 +72,9 @@ public partial class Sys_SurveyDetailM : BasePage
         }
         GridBind();
     }
+
+    protected void btnExport_Click(object sender, EventArgs e)
+    {
+        return;
+    }
 }

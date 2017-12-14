@@ -15,12 +15,40 @@ public partial class Sys_SurveyM : BasePage
             Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
             return;
         }
+
         if (!this.IsPostBack)
         {
             GridBind();
         }
+        
+        /*
+        if (!Page.IsPostBack)
+        {
+            this.hfProjectId.Value = Request["id"].Trim();
+            GridBind();
+        }
+        */
     }
 
+    /*
+    private void GridBind()
+    {
+        if (Session["userId"] == null || Session["userId"].ToString().Trim().Equals("") || Session["roleCode"] == null || Session["roleCode"].ToString().Trim().Equals(""))
+        {
+            Response.Write("<script language=javascript>top.location.href='../Login.aspx'</script>");
+            return;
+        }
+
+        int projectId = int.Parse(this.hfProjectId.Value.Trim());
+        int userid = int.Parse(Session["userId"].ToString().Trim());
+        int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
+
+        DataTable dt = new DataTable();
+        SurveyInfoData surveyInfoData = new SurveyInfoData();
+       dt = surveyInfoData.GetSurveyInfoByUserId(projectId, userid, roleCode);
+        GridView1.DataSource = dt;
+        GridView1.DataBind();
+    }*/
 
     private void GridBind()
     {
@@ -80,8 +108,14 @@ public partial class Sys_SurveyM : BasePage
         int roleCode = int.Parse(Session["roleCode"].ToString().Trim());
         DataTable dt = new DataTable();
         SurveyInfoData surveyInfoData = new SurveyInfoData();
+        //dt = surveyInfoData.GetSurveyInfoByUserIdWithCondition(projectId, userid, roleCode);
         dt = surveyInfoData.GetSurveyInfoByUserIdWithCondition(userid, roleCode,this.txtConditionProjectName.Text.Trim());
         GridView1.DataSource = dt;
         GridView1.DataBind();
+    }
+
+    protected void btnExport_Click(object sender, EventArgs e)
+    {
+        return;
     }
 }

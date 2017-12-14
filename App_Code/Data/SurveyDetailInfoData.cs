@@ -49,6 +49,51 @@ public class SurveyDetailInfoData
         return dt;
     }
 
+    public DataTable GetSurveyDetailByProjectId(int projectId)
+    {
+        DataTable dt = new DataTable(); //声明数据库表
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "select a.* from " +
+            "SurveyDetail a join Survey b " +
+            "on a.SurveyId = b.Id " +
+            "where b.ProjectId = " + projectId;
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        da.Fill(dt);
+        con.Close();
+        return dt;
+    }
+
+    public DataTable GetSurveyReportByProjectId(int projectId)
+    {
+        DataTable dt = new DataTable();
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        //cmd.commandtext = "select a.* from " +
+        //    "surveydetail a join survey b " +
+        //    "on a.surveyid = b.id " +
+        //    "where b.projectid = " + projectid;
+        //cmd.CommandText = "select c.ProjectName, b.Title, b.SurveyDate, a.* " +
+        //    "from(SurveyDetail a join Survey b on a.SurveyId = b.Id) " +
+        //    "join Project c on b.ProjectId = c.Id where c.Id = " + projectId;
+        cmd.CommandText = "select a.Title, a.SurveyDate, b.* from Survey a join SurveyDetail b on a.Id = b.SurveyId where a.ProjectId = " + projectId;
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        da.Fill(dt);
+        con.Close();
+        return dt;
+    }
+
+
     public SurveyDetailInfo GetSurveyDetailInfoBySurveyDetailId(int surveyDetailId)
     {
         if (con.State == ConnectionState.Closed)

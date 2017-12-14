@@ -1,9 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SurveyM.aspx.cs" Inherits="Sys_SurveyM" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SurveyParentM.aspx.cs" Inherits="Sys_ProjectParentM" %>
 
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1" runat="server">
-    <title>项目管理</title>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>勘测日志</title>
     <link href="../Styles/css.css" rel="stylesheet" type="text/css" />
     <link href="../Styles/GridView.css" rel="stylesheet" type="text/css" />
     <script src="../Scripts/jquery-1.7.js" type="text/javascript"></script>
@@ -18,55 +20,54 @@
     <script src="../Scripts/jquery-1.3.2.js" type="text/javascript"></script>
     <script src="../Scripts/PageInit.js" type="text/javascript"></script>
     <script src="../Plugin/lodop/LodopFuncs.js"></script>
+        <script type="text/javascript">
 
-    <script type="text/javascript">
-        
-        $(function () {
-            dialog('<%= Message %>', '<%= Href %>');
-        });
+            $(function () {
+                dialog('<%= Message %>', '<%= Href %>');
+            });
 
-        //修改
-        function Edit(id) {
-            var url = 'SurveyO.aspx';
-            if (id != "") {
-                url = url + '?id=' + id;
-            }
-            art.dialog.open(url,
-                {
-                    id: 'Survey',
-                    title: '勘测计划维护',
-                    fixed: true,
-                    top: 100,
-                    width: 1000,
-                    height: 250,
-                    resize: false,
-                    close: function () {
-                        if (art.dialog.data('message') != undefined) {
-                            art.dialog({
-                                content: art.dialog.data('message').substring(7),
-                                icon: "succeed",
-                                title: "成功",
-                                ok: function () {
-                                    $("#btnQuery").click();
-                                }
-                            });
-                            art.dialog.removeData('message');
+            //修改
+            function Edit(id) {
+                var url = 'SurveyO.aspx';
+                if (id != "") {
+                    url = url + '?id=' + id;
+                }
+                art.dialog.open(url,
+                    {
+                        id: 'Survey',
+                        title: '勘测计划维护',
+                        fixed: true,
+                        top: 100,
+                        width: 1000,
+                        height: 250,
+                        resize: false,
+                        close: function () {
+                            if (art.dialog.data('message') != undefined) {
+                                art.dialog({
+                                    content: art.dialog.data('message').substring(7),
+                                    icon: "succeed",
+                                    title: "成功",
+                                    ok: function () {
+                                        $("#btnQuery").click();
+                                    }
+                                });
+                                art.dialog.removeData('message');
+                            }
                         }
-                    }
-                }, false);
-        }
-        //GoTo详细信息
-        function Go(id) {
-            var url = 'SurveyDetailM.aspx';
-            if (id != "") {
-                url = url + '?id=' + id;
+                    }, false);
             }
-            window.location.href = url;
-        }
+            //GoTo详细信息
+            function Go(id) {
+                var url = 'SurveyM.aspx';
+                if (id != "") {
+                    url = url + '?id=' + id;
+                }
+                window.location.href = url;
+            }
 
-        function Close() {
+            function Close() {
                 dialog.close();
-        }
+            }
 
     </script>
 </head>
@@ -76,7 +77,7 @@
             <div style="float: right; text-align: right; margin-right: 5px;">
                 <input id="btnAdd" type="button" onclick="Edit('');" class="bu02" value="添加" />
             </div>
-            <h2>勘测计划</h2>
+            <h2>勘测日志</h2>
         </div>
         <div>
             <table class="t02">
@@ -91,11 +92,6 @@
                         <td style="text-align: center; width: 120px;">
                             <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询" OnClick="btnQuery_Click"/>
                         </td>
-                        <%-- 
-                        <td style="text-align: center; width: 120px;">
-                            <asp:Button ID="btnExport" class="bu03" runat="server" Text="导出" OnClick="btnExport_Click"/>
-                        </td>
-                        --%>
                         <td style="text-align: center; width: 120px;"></td>
                     </tr>
                 </tbody>
@@ -105,7 +101,7 @@
             <asp:GridView ID="GridView1" DataKeyNames="Id" AllowSorting="True"
                 runat="server" BorderColor="#A1B6E1" BorderWidth="1px" CellPadding="1" AutoGenerateColumns="False"
                 PageSize="15" 
-                ShowHeaderWhenEmpty="True" OnRowDataBound="GridView1_RowDataBound" OnRowCommand="GridView1_RowCommand">
+                ShowHeaderWhenEmpty="True">
                 <PagerSettings Mode="NextPreviousFirstLast" />
                 <FooterStyle CssClass="GridViewFooterStyle" />
                 <RowStyle CssClass="GridViewRowStyle" />
@@ -127,41 +123,20 @@
                             <asp:Label ID="labID" runat="server" Text='<%# Container.DataItemIndex+1 %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="ProjectName" ItemStyle-Width="280px" HeaderText="项目名"></asp:BoundField>
-                    <asp:BoundField DataField="Title" HeaderText="勘测内容"></asp:BoundField>
-                    <asp:BoundField DataField="SurveyDate" ItemStyle-Width="80px" HeaderText="勘测日期" />
-                    
-                    <asp:TemplateField HeaderText="详情" ItemStyle-Width="40px">
+                    <asp:BoundField DataField="ProjectName"  HeaderText="项目名"></asp:BoundField>
+                    <asp:BoundField DataField="UserName" ItemStyle-Width="60px" HeaderText="负责人"></asp:BoundField>
+                    <asp:BoundField DataField="Tel" ItemStyle-Width="60px" HeaderText="联系方式" />
+                    <asp:BoundField DataField="Resident" ItemStyle-Width="200px" HeaderText="驻地"></asp:BoundField>
+                    <asp:TemplateField HeaderText="勘测详情" ItemStyle-Width="60px">
                         <ItemTemplate>
-                            <img alt="详情" style="cursor: pointer;" src="../Images/bb-show.gif"  onclick="Go(<%# DataBinder.Eval(Container.DataItem, "Id")%>)"/>
+                            <img alt="勘测详情" style="cursor: pointer;" src="../Images/bb-show.gif"  onclick="Go(<%# DataBinder.Eval(Container.DataItem, "Id")%>)"/>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="修改" ItemStyle-Width="40px">
-                        <ItemTemplate>
-                            <img alt="修改" style="cursor: pointer;" onclick="Edit(<%# DataBinder.Eval(Container.DataItem, "Id")%>)"
-                                src="../Images/bb-ud.gif" />
-                        </ItemTemplate>
-                        <ItemStyle Width="40px"></ItemStyle>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="删除" ItemStyle-Width="40px">
-                         <ItemTemplate>
-                             <asp:ImageButton ID="imgBtn" OnClientClick="javascript:return confirm('数据删除后无法恢复，您确定删除整张勘测日志表吗？');" CommandName="del" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "Id")%>' runat="server" ImageUrl="../images/bb-del.gif" />
-                         </ItemTemplate>
-                         <ItemStyle Width="40px" />
-                     </asp:TemplateField>
                 </Columns>
                 <PagerSettings Mode="NextPreviousFirstLast" Visible="False" />
             </asp:GridView>
-            <asp:Panel ID="panelClose" runat="server" Visible="false">
-                <script type="text/javascript">
-                    parent.art.dialog.data('message', '<%= Message %>');
-                    Close();
-                </script>
-            </asp:Panel>
         </div>
-                <div>
-            <asp:HiddenField ID="hfProjectId" runat="server" />
-        </div>
+        <div id="print" style="display:none;"></div>
     </form>
 </body>
 </html>

@@ -109,7 +109,25 @@ public class AttendInfoData
             attendInfo.Auditor = auditor;
             attendInfo.CreateDate = dr.GetDateTime(8);
         }
+        con.Close();
         return attendInfo;
+    }
+
+    public DataTable GetAttendInfoByProjectId(int projectId)
+    {
+        DataTable dt = new DataTable();
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "select * from Attendance where ProjectId = " + projectId;
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        da.Fill(dt);
+        con.Close();
+        return dt;
     }
 
     public bool CommitAttendInfo(AttendInfo attendInfo)

@@ -60,6 +60,29 @@ public class UserInfoData
         return userInfo;
     }
 
+    public string getUserNameByUserId(int userId)
+    {
+        string userName = "";
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "select UserName from UserInfo where Id = " + userId;
+
+        SqlDataReader dr = cmd.ExecuteReader();
+        if (dr.Read())
+        {
+            userName = dr.GetString(0);    
+        }
+        con.Close();
+        return userName;
+    }
+
+
+
     public DataTable GetUserInfos() {
         DataTable dt = new DataTable();
         if (con.State == ConnectionState.Closed)
@@ -85,7 +108,7 @@ public class UserInfoData
         cmd.Connection = con;
         cmd.CommandType = CommandType.Text;
         if (userInfo.Id == 0)
-            cmd.CommandText = "insert into UserInfo values(N'" + userInfo.UserName + "','123456',2,'" + userInfo.Tel + "','" + userInfo.Code + "')";
+            cmd.CommandText = "insert into UserInfo values(N'" + userInfo.UserName + "','123456','"+userInfo.RoleInfo.Id+"','" + userInfo.Tel + "','" + userInfo.Code + "')";
         else
             cmd.CommandText = "update UserInfo set UserName = N'" + userInfo.UserName + "', Tel = '" + userInfo.Tel + "', RoleId = '" + userInfo.RoleInfo.Id+"', Code = '" + userInfo.Code + "' where id = " + userInfo.Id;
         int i = cmd.ExecuteNonQuery();

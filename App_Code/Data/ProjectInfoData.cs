@@ -62,6 +62,26 @@ public class ProjectInfoData
         return dt;
     }
 
+    public string GetProjectNameByProjectId(int projectId)
+    {
+        string projectName = "";
+        if (con.State == ConnectionState.Closed)
+        {
+            con.Open();
+        }
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "select ProjectName from Project where Id = " + projectId;
+        SqlDataReader dr = cmd.ExecuteReader();
+        if (dr.Read())
+        {
+            projectName = dr.GetString(0);
+        }
+        con.Close();
+        return projectName;
+    }
+
     public ProjectInfo GetProjectInfoByProjectId(int projectId) {
         if (con.State == ConnectionState.Closed)
         {
