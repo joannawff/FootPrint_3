@@ -105,10 +105,9 @@ public class ExcelHelper
                 DataTable dt = new DataTable();
                 dt = attendDetailInfoData.GetAttendDetailInfoByAttendanceId(attendId);
 
-
                 //插入标题
                 #region 练习合并单元格
-                sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(startRow, 0, startRow, 3+endDate.Subtract(startDate).Days));
+                sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(startRow, startRow, 0, 3+endDate.Subtract(startDate).Days));
                 //CellRangeAddress（）该方法的参数次序是：开始行号，结束行号，开始列号，结束列号。
 
                 IRow row0 = sheet.CreateRow(startRow);
