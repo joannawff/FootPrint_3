@@ -37,6 +37,7 @@ public partial class Sys_ReportM : BasePage
         dt = projectInfoData.GetProjectInfoByUserId(useId, roleCode);
         GridView1.DataSource = dt;
         GridView1.DataBind();
+        
     }
 
     protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -294,4 +295,29 @@ public partial class Sys_ReportM : BasePage
         GridView1.DataBind();
     }
 
+
+    protected void btnReport_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    //全选
+    protected void chkHeader_CheckedChanged(object sener, EventArgs e)
+    {
+        //CheckBox chkHeader = (CheckBox)GridView1.FindControl("chkHeader");
+        CheckBox cbCheckAll = (CheckBox)sener;
+        for (int i = 0; i < GridView1.Rows.Count; i++)
+        {
+            CheckBox chk = (CheckBox)(GridView1.Rows[i].FindControl("chkSelect"));
+            //chk.Checked = chkHeader.Checked;
+            if (cbCheckAll.Checked)
+            {
+                chk.Checked = true;
+            }
+            else
+            {
+                chk.Checked = false;
+            }
+        }
+    }
 }

@@ -44,6 +44,9 @@
                         <td style="text-align: center; width: 120px;">
                             <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询" OnClick="btnQuery_Click"/>
                         </td>
+                                                <td style="text-align: center; width: 120px;">
+                            <asp:Button ID="btnReport" class="bu03" runat="server" Text="生成报表" OnClick="btnReport_Click"/>
+                        </td>
                         <td style="text-align: center; width: 120px;"></td>
                     </tr>
                 </tbody>
@@ -80,7 +83,7 @@
                     <asp:BoundField DataField="Tel" ItemStyle-Width="60px" HeaderText="联系方式" />
                     <asp:BoundField DataField="Resident" ItemStyle-Width="100px" HeaderText="驻地"></asp:BoundField>
                 
-                    <asp:TemplateField HeaderText="勘测报表" ItemStyle-Width="60px">
+<%--                    <asp:TemplateField HeaderText="勘测报表" ItemStyle-Width="60px">
                          <ItemTemplate>
                              <asp:ImageButton ID="exportSurveyReportBtn" OnClientClick="javascript:return confirm('您确定下载勘测日志报表吗？');" CommandName="printSurvey" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "Id")%>' runat="server" ImageUrl="../images/bb-print.gif" />
                          </ItemTemplate>
@@ -91,7 +94,18 @@
                              <asp:ImageButton ID="exportAttendReportBtn" OnClientClick="javascript:return confirm('您确定下载考勤日志报表吗？');" CommandName="printAttend" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "Id")%>' runat="server" ImageUrl="../images/bb-print.gif" />
                          </ItemTemplate>
                          <ItemStyle Width="60px" />
+                     </asp:TemplateField>--%>
+                    <asp:TemplateField ShowHeader="true" ItemStyle-Width="60px">
+                        <HeaderTemplate>
+                            <%--<asp:Button ID="btnSelectAll" CommandName='<%# Bind("ID") %>'  runat="server" Text="全选" OnClick="btnSelectAll_Click"/>--%>
+                            <asp:CheckBox ID="chkHeader" runat="server" Text="全选" AutoPostBack="True" OnCheckedChanged ="chkHeader_CheckedChanged"/>
+                        </HeaderTemplate>
+                         <ItemTemplate>
+                             <asp:CheckBox ID="chkSelect" runat="server"/>
+                         </ItemTemplate>
+                         <ItemStyle Width="60px" />
                      </asp:TemplateField>
+
                 </Columns>
                 <PagerSettings Mode="NextPreviousFirstLast" Visible="False" />
             </asp:GridView>
