@@ -88,14 +88,14 @@ public class ExcelUtil
 
                 IRow row0 = sheet.CreateRow(startRow);
                 row0.Height = 20 * 20;
-                ICell icell1top0 = row0.CreateCell(startRow);
+                ICell icell1top0 = row0.CreateCell(0);
                 icell1top0.CellStyle = Getcellstyle(workbook, stylexls.头);
                 icell1top0.SetCellValue(title);
                 startRow++;
                 #endregion
 
                 //插入表头
-                NPOI.SS.UserModel.IRow row1 = sheet.CreateRow(startRow++);
+                IRow row1 = sheet.CreateRow(startRow++);
                 row1.CreateCell(0).SetCellValue("序号");
                 row1.CreateCell(1).SetCellValue("姓名");
                 row1.CreateCell(2).SetCellValue("代码");
