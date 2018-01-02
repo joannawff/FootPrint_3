@@ -296,11 +296,6 @@ public partial class Sys_ReportM : BasePage
     }
 
 
-    protected void btnReport_Click(object sender, EventArgs e)
-    {
-
-    }
-
     //全选
     protected void chkHeader_CheckedChanged(object sener, EventArgs e)
     {
@@ -317,6 +312,45 @@ public partial class Sys_ReportM : BasePage
             else
             {
                 chk.Checked = false;
+            }
+        }
+    }
+
+    //生成报表
+    protected void btnReport_Click(object sender, EventArgs e)
+    {
+        foreach (GridViewRow row in GridView1.Rows)
+        {
+            if ((row.FindControl("chkSelect") as CheckBox).Checked)
+            {
+                string projectName = row.Cells[1].Text;
+                ProjectInfoData projectInfoData = new ProjectInfoData();
+                int projectId = projectInfoData.GetProjectIdByProjectName(projectName);
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + projectName + "勘测日志" + System.DateTime.Now.ToString("yyyyMMdd") + ".xls";
+
+                ExcelUtil excelUtil = new ExcelUtil();
+
+                //生成勘测日志表
+                SurveyDetailInfoData surveyDetailInfoData = new SurveyDetailInfoData();
+                DataTable surveyDt = new DataTable();
+                surveyDt = surveyDetailInfoData.GetSurveyReportByProjectId(projectId);
+                string surveySheet = "勘测日志";
+                string[] surveyHead = new string[14]{"项目名称", " 勘测任务", "勘测日期", "组长兼安全员",
+                                                "工作项目","组员","计划","实际",
+                                                "收工时间","整理资料","整理人员","使用仪器及设备号",
+                                                "用车记录","备注"};
+                excelUtil.GenSurveySheet(surveyDt, projectName, surveyHead, surveySheet);
+
+                //生成考勤日志表
+                AttendInfoData attendInfoData = new AttendInfoData();
+                DataTable attendDt = new DataTable();
+                attendDt = attendInfoData.GetAttendInfoByProjectId(projectId);
+                string attendSheet = "队考勤";
+                excelUtil.GenAttendSheet(attendDt, projectName, attendSheet);
+
+                //输出文件
+                excelUtil.DownloadFile(filePath);
+
             }
         }
     }
