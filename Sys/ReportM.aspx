@@ -44,7 +44,7 @@
                         <td style="text-align: center; width: 120px;">
                             <asp:Button ID="btnQuery" class="bu03" runat="server" Text="查询" OnClick="btnQuery_Click"/>
                         </td>
-                                                <td style="text-align: center; width: 120px;">
+                        <td style="text-align: center; width: 120px;">
                             <asp:Button ID="btnReport" class="bu03" runat="server" Text="生成报表" OnClick="btnReport_Click"/>
                         </td>
                         <td style="text-align: center; width: 120px;"></td>

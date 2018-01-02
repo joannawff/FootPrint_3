@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Interop.ExcelEdit;
+//using System.Windows.Forms;
 
 public partial class Sys_ReportM : BasePage
 {
@@ -319,9 +315,24 @@ public partial class Sys_ReportM : BasePage
     //生成报表
     protected void btnReport_Click(object sender, EventArgs e)
     {
+        //string fileRoot = ""; //输出文件的上层路径
+        //System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+        //dialog.Description = "请选择文件夹";
+        //if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK || dialog.ShowDialog() == System.Windows.Forms.DialogResult.Yes)
+        //{
+        //    fileRoot = dialog.SelectedPath;
+        //}
+
+        //System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+        //System.Windows.Forms.DialogResult result = saveFileDialog.ShowDialog();
+        //if (result == System.Windows.Forms.DialogResult.OK)
+        //{
+        //    fileRoot = saveFileDialog.FileName;
+        //}
+
         foreach (GridViewRow row in GridView1.Rows)
         {
-            if ((row.FindControl("chkSelect") as CheckBox).Checked)
+            if ((row.FindControl("chkSelect") as System.Web.UI.WebControls.CheckBox).Checked)
             {
                 string projectName = row.Cells[1].Text;
                 ProjectInfoData projectInfoData = new ProjectInfoData();
@@ -350,7 +361,7 @@ public partial class Sys_ReportM : BasePage
 
                 //输出文件
                 excelUtil.DownloadFile(filePath);
-
+                this.Alert("文件已成功保存至桌面！", MessageType.Succeed);
             }
         }
     }
