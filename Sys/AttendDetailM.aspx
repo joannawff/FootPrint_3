@@ -12,6 +12,7 @@
     <script src="../Plugin/artDialog/plugins/iframeTools.source.js" type="text/javascript"></script>
     <link href="../Plugin/artDialog/skins/default.css" rel="stylesheet" type="text/css" />
     <script src="../Scripts/artDialogInit.js" type="text/javascript"></script>
+
     <%--日期控件--%>
     <link href="../Plugin/My97DatePicker/WdatePicker.css" rel="stylesheet" />
     <script src="../Plugin/My97DatePicker/WdatePicker.js"></script>
@@ -55,6 +56,36 @@
                 }
             }, false);
         }
+        function MakeStaticHeader(gridId, height, width, headerHeight, isFooter) {
+            var tbl = document.getElementById(gridId);
+            if (tbl) {
+                var DivHR = document.getElementById('DivHeaderRow');
+                var DivMC = document.getElementById('DivMainContent');
+
+                //*** Set divheaderRow Properties ****
+                DivHR.style.height = headerHeight + 'px';
+                DivHR.style.width = (parseInt(width) - 16) + 'px';
+                DivHR.style.position = 'relative';
+                DivHR.style.top = '0px';
+                DivHR.style.zIndex = '10';
+                DivHR.style.verticalAlign = 'top';
+
+                //*** Set divMainContent Properties ****
+                DivMC.style.width = width + 'px';
+                DivMC.style.height = height + 'px';
+                DivMC.style.position = 'relative';
+                DivMC.style.top = -headerHeight + 'px';
+                DivMC.style.zIndex = '1';
+                //****Copy Header in divHeaderRow****
+                DivHR.appendChild(tbl.cloneNode(true));
+            }
+        }
+
+
+
+        function OnScrollDiv(Scrollablediv) {
+            document.getElementById('DivHeaderRow').scrollLeft = Scrollablediv.scrollLeft;
+        }
     </script>
 </head>
 <body>
@@ -83,8 +114,12 @@
                 </tbody>
             </table>
         </div>
-        <div style="margin: 5px 10px 0px 3px;"">
-             <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" BorderColor="#A1B6E1" 
+        <div id ="DivRoot">
+            <div style="overflow:hidden;" id="DivHeaderRow">
+            </div>
+            <div style="overflow:scroll;" onscroll="OnScrollDiv(this)" id="DivMainContent">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false"
+                 AllowSorting="True" GridLines="Both" BorderColor="#A1B6E1" ShowFooter="true"
                  BorderWidth="1px" CellPadding="1" DataKeyNames="Id" 
                  OnRowCommand="GridView1_RowCommand" OnRowDataBound="GridView1_RowDataBound" 
                  PageSize="15" ShowHeaderWhenEmpty="True">
@@ -193,6 +228,7 @@
                  </Columns>
                  <PagerSettings Mode="NextPreviousFirstLast" Visible="False" />
              </asp:GridView>
+            </div>
         </div>
         <div>
             <asp:HiddenField ID="hfAttendId" runat="server" />

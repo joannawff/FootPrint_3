@@ -19,6 +19,7 @@ public partial class Sys_AttendDetailM : BasePage
 
         if (!this.IsPostBack)
         {
+            ScriptManager.RegisterStartupScript(Page, this.GetType(), "Key", "<script>MakeStaticHeader('" + GridView1.ClientID + "',400,1080,30,true);</script>", false);
             this.hfAttendId.Value = Request["id"].Trim();
             GridInti();
             GridBind();
